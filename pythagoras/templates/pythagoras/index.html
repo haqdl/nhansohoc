@@ -9,7 +9,12 @@
   <form action="" method="post">
 	{% csrf_token %}
 	<fieldset>
-	{{form}}
+  {% for field in form %}
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        {{ field.label }} {{ field }}
+    </div>
+  {% endfor %}
 	</fieldset>
 	<input type="submit" value="Calculate">
   </form>
@@ -17,47 +22,153 @@
   <h2> Numerology details </h2>
   <div>
     <hr/>
-    <span><b>{{details.info.last_name}} {{details.info.first_name}} <br/></span>
-    <span><b>{{details.info.birthdate}} </span>
+    <span>Full Name: <b>{{details.info.last_name}} {{details.info.first_name}} </b> <br/></span>
+    <span>Date Of Birth: <b>{{details.dob}} </b><br/></span>
+    <span>Date of Report: <b>{{details.fortune_day}} </b></span>
+
   </div>
   <div>
     <hr/>
-    <span><b>Life Path Number</b> : {{details.info.life_path_number_alternative}} <br/></span>
-    <span><b>Life Path meaning</b> : {{details.lifepath}} </span>
+    <table>
+      <tr>
+        <td colspan="2" align="center">
+          <h2> CHỈ SỐ ĐƯỜNG ĐỜI</h2>
+        </td>
+      </tr>
+      <tr>
+        <td width="100px">
+          <h1>{{details.info.life_path_number}}</h1>
+        </td>
+        <td>
+          {{details.lifepath|safe }}
+        </td>
+      </tr>
+    </table>    
   </div>
   <div>
     <hr/>
-    <span><b>Destiny Path Number</b> : {{details.info.destiny_number}} <br/></span>
-    <span><b>Destiny Path meaning</b> : {{details.destinypath}} </span>
+    <table>
+      <tr>
+        <td colspan="2" align="center">
+          <h2> CHỈ SỐ SỨ MỆNH </h2>
+        </td>
+      </tr>
+      <tr>
+        <td width="100px">
+          <h1>{{details.info.destiny_number}}</h1>
+        </td>
+        <td>
+          {{details.destinypath|safe}}
+        </td>
+      </tr>
+    </table> 
   </div>
   <div>
     <hr/>
-    <span><b>Hearth Desire Number</b> : {{details.info.hearth_desire_number}} <br/></span>
-    <span><b>Hearth Desire meaning</b> : {{details.hearthdesire}} </span>
+    <table>
+      <tr>
+        <td colspan="2" align="center">
+          <h2> CHỈ SỐ LINH HỒN (chỉ số Động lực tiềm ẩn)</h2>
+        </td>
+      </tr>
+      <tr>
+        <td width="100px">
+          <h1>{{details.info.hearth_desire_number}}</h1>
+        </td>
+        <td>
+          {{details.hearthdesire}}
+        </td>
+      </tr>
+    </table> 
   </div>  
   <div>
     <hr/>
-    <span><b>Personality Number</b> : {{details.info.personality_number}} <br/></span>
-    <span><b>Personality meaning</b> : {{details.personality}} </span>
+    <table>
+      <tr>
+        <td colspan="2" align="center">
+          <h2> CHỈ SỐ NHÂN CÁCH (chỉ số biểu đạt bên ngoài)</h2>
+        </td>
+      </tr>
+      <tr>
+        <td width="100px">
+          <h1>{{details.info.personality_number}}</h1>
+        </td>
+        <td>
+          {{details.personality}}
+        </td>
+      </tr>
+    </table> 
   </div>    
   <div>
     <hr/>
-    <span><b>Power Number</b> : {{details.info.power_number}} <br/></span>
-    <span><b>Power meaning</b> : {{details.powerpath}} </span>
+    <table>
+      <tr>
+        <td colspan="2" align="center">
+          <h2> CHỈ SỐ TRƯỞNG THÀNH (Thành tựu)</h2>
+        </td>
+      </tr>
+      <tr>
+        <td width="100px">
+          <h1>{{details.info.power_number}}</h1>
+        </td>
+        <td>
+          {{details.powerpath}}
+        </td>
+      </tr>
+    </table> 
   </div>   
   <div>
     <hr/>
-    <span><b>Active Path Number</b> : {{details.info.active_number}} <br/></span>
-    <span><b>Active Path meaning</b> : {{details.activepath}} </span>
+    <table>
+      <tr>
+        <td colspan="2" align="center">
+          <h2>CHỈ SỐ TÊN HIỆN TẠI</h2>
+        </td>
+      </tr>
+      <tr>
+        <td width="100px">
+          <h1>{{details.info.active_number}}</h1>
+        </td>
+        <td>
+          {{details.activepath}}
+        </td>
+      </tr>
+    </table>
   </div>  
   <div>
     <hr/>
-    <span><b>Legacy Path Number</b> : {{details.info.legacy_number}} <br/></span>
-    <span><b>Legacy Path meaning</b> : {{details.legacypath}} </span>
+    <table>
+      <tr>
+        <td colspan="2" align="center">
+          <h2>CHỈ SỐ HỌ HIỆN TẠI</h2>
+        </td>
+      </tr>
+      <tr>
+        <td width="100px">
+          <h1>{{details.info.legacy_number}}</h1>
+        </td>
+        <td>
+          {{details.legacypath}}
+        </td>
+      </tr>
+    </table>
   <div>
     <hr/>
-    <span><b>Expression Path Number</b> : {{details.info.expression_number}} <br/></span>
-    <span><b>Expression Path meaning</b> : {{details.expressionpath}} </span>    
+    <table>
+      <tr>
+        <td colspan="2" align="center">
+          <h2>Expression</h2>
+        </td>
+      </tr>
+      <tr>
+        <td width="100px">
+          <h1>{{details.info.expression_number}}</h1>
+        </td>
+        <td>
+          {{details.expressionpath}}
+        </td>
+      </tr>
+    </table>
 </div>   
 </body>
 </html>

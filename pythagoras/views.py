@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from django.template import loader
+from datetime import datetime
 
 from numerology import Pythagorean
 
@@ -25,6 +26,8 @@ def index(request):
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         dob = request.POST['date_of_birth']
+        fortune_day = datetime.today().strftime('%d-%m-%Y')     
+        
         # calculate
         numerology_results = Pythagorean(
             first_name=first_name,
@@ -33,9 +36,12 @@ def index(request):
             verbose=True
         )
         details_dict['info'] = numerology_results.key_figures
+        details_dict['dob'] = datetime.strptime(dob, '%Y-%m-%d').strftime('%d-%m-%Y')
+        details_dict['fortune_day'] = fortune_day
+
         # life path
         life_path = LifePath.objects.filter(
-            life_path_number=numerology_results.life_path_number_alternative
+            life_path_number=numerology_results.life_path_number
         )
         if life_path:
             details_dict['lifepath'] = life_path[0].meaning
@@ -85,7 +91,7 @@ def index(request):
         expression_path = ExpressionPath.objects.filter(
             expression_number=numerology_results.destiny_number
         )
-        if legacy_path:
+        if expression_path:
             details_dict['expressionpath'] = expression_path[0].meaning            
 
     candidate_form = CandidateForm()

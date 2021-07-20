@@ -25,7 +25,7 @@ SECRET_KEY = 'n^3&zbc65**(5whw$x7)@nx+$gd@56dxuj1yy2oy%d*7in)9#q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -110,10 +110,11 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
+DATE_INPUT_FORMATS = ['%d-%m-%Y', '%Y-%m-%d']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

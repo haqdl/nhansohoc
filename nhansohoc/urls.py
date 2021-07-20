@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-urlpatterns = [
+urlpatterns = [    
+    path('', include('pythagoras.urls')),
     path('pythagoras/', include('pythagoras.urls')),
     path('admin/', admin.site.urls),
 ]
