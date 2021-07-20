@@ -26,18 +26,30 @@ def index(request):
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         dob = request.POST['date_of_birth']
-        fortune_day = datetime.today().strftime('%d-%m-%Y')     
+        fortune_day = datetime.today()   
         
+        birthday = datetime.strptime(dob, '%Y-%m-%d')
         # calculate
         numerology_results = Pythagorean(
             first_name=first_name,
             last_name=last_name,
             birthdate=dob,
-            verbose=True
+            verbose=False
         )
         details_dict['info'] = numerology_results.key_figures
         details_dict['dob'] = datetime.strptime(dob, '%Y-%m-%d').strftime('%d-%m-%Y')
-        details_dict['fortune_day'] = fortune_day
+        details_dict['fortune_day'] = fortune_day.strftime('%d-%m-%Y')  
+
+        # chi so nam ca nhan - current year
+        curr_year_num = Pythagorean.get_numerology_sum(
+            (birthday.day, birthday.month, fortune_day.year), master_number=True
+        )
+        curr_month_num = Pythagorean.get_numerology_sum((curr_year_num, fortune_day.month), master_number=False)
+
+        next_year_num = Pythagorean.get_numerology_sum(
+            (birthday.day, birthday.month, fortune_day.year+1), master_number=True
+        )
+
 
         # life path
         life_path = LifePath.objects.filter(
