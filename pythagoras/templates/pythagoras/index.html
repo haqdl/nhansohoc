@@ -1,0 +1,64 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Numerology</title>
+  </script>
+</head>
+</body>
+  <form action="" method="post">
+	{% csrf_token %}
+	<fieldset>
+	{{form}}
+	</fieldset>
+	<input type="submit" value="Calculate">
+  </form>
+  <hr />
+  <h2> Numerology details </h2>
+  <div>
+    <hr/>
+    <span><b>{{details.info.last_name}} {{details.info.first_name}} <br/></span>
+    <span><b>{{details.info.birthdate}} </span>
+  </div>
+  <div>
+    <hr/>
+    <span><b>Life Path Number</b> : {{details.info.life_path_number_alternative}} <br/></span>
+    <span><b>Life Path meaning</b> : {{details.lifepath}} </span>
+  </div>
+  <div>
+    <hr/>
+    <span><b>Destiny Path Number</b> : {{details.info.destiny_number}} <br/></span>
+    <span><b>Destiny Path meaning</b> : {{details.destinypath}} </span>
+  </div>
+  <div>
+    <hr/>
+    <span><b>Hearth Desire Number</b> : {{details.info.hearth_desire_number}} <br/></span>
+    <span><b>Hearth Desire meaning</b> : {{details.hearthdesire}} </span>
+  </div>  
+  <div>
+    <hr/>
+    <span><b>Personality Number</b> : {{details.info.personality_number}} <br/></span>
+    <span><b>Personality meaning</b> : {{details.personality}} </span>
+  </div>    
+  <div>
+    <hr/>
+    <span><b>Power Number</b> : {{details.info.power_number}} <br/></span>
+    <span><b>Power meaning</b> : {{details.powerpath}} </span>
+  </div>   
+  <div>
+    <hr/>
+    <span><b>Active Path Number</b> : {{details.info.active_number}} <br/></span>
+    <span><b>Active Path meaning</b> : {{details.activepath}} </span>
+  </div>  
+  <div>
+    <hr/>
+    <span><b>Legacy Path Number</b> : {{details.info.legacy_number}} <br/></span>
+    <span><b>Legacy Path meaning</b> : {{details.legacypath}} </span>
+  <div>
+    <hr/>
+    <span><b>Expression Path Number</b> : {{details.info.expression_number}} <br/></span>
+    <span><b>Expression Path meaning</b> : {{details.expressionpath}} </span>    
+</div>   
+</body>
+</html>
+
