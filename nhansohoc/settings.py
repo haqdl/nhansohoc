@@ -121,6 +121,9 @@ DATE_INPUT_FORMATS = ['%d-%m-%Y', '%Y-%m-%d']
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT  =  os.path.join(BASE_DIR, "static") 
-CKEDITOR_BASEPATH =  "/static/ckeditor/ckeditor/"
-CKEDITOR_UPLOAD_PATH = "uploads/"
+STATIC_ROOT  =  os.path.join(BASE_DIR, "assets") 
+CKEDITOR_BASEPATH =  "/assets/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "/assets/uploads/"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"), 
+]
