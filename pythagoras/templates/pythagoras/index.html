@@ -77,7 +77,7 @@
             <a href="#" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">
-                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                <img src="{% static 'adminlte/dist/img/user3-128x128.jpg' %}" alt="User Avatar" class="img-size-50 img-circle mr-3">
                 <div class="media-body">
                   <h3 class="dropdown-item-title">
                     Nora Silvester
@@ -233,17 +233,21 @@
                     </p>
                   </div>
                 </div>
-                <div class="card-body">               
+                <div class="card-body">   
                   <form action="" method="post">
                     {% csrf_token %}
-                    <fieldset>
-                    {% for field in form %}
-                      <div class="fieldWrapper">
-                          {{ field.errors }}
-                          {{ field.label }} {{ field }}
-                      </div>
-                    {% endfor %}
-                    </fieldset>
+                    <table>   
+                      {% for field in form %}
+                        <tr>
+                          <th>{{ field.label_tag }}</th>
+                          <td>
+                            {{ field.errors }}
+                            {{ field }}
+                            {{ field.help_text }}
+                          </td>
+                        </tr>
+                      {% endfor %}        
+                  </table>        
                     <input type="submit" value="Calculate">
                     </form>                  
                 </div>
@@ -262,9 +266,9 @@
                   </div>
                 </div>
                 <div class="card-body">
-                  <span>Full Name: <b>{{details.info.last_name}} {{details.info.first_name}} </b> <br/></span>
-                  <span>Date Of Birth: <b>{{details.dob}} </b><br/></span>
-                  <span>Date of Report: <b>{{details.fortune_day}} </b></span>                  
+                  <span>Tên đầy đủ: <b>{{details.info.last_name}} {{details.info.first_name}} </b> <br/></span>
+                  <span>Ngày Sinh: <b>{{details.dob}} </b><br/></span>
+                  <span>Ngày dự báo: <b>{{details.fortune_day}} </b></span>                  
                 </div>
               </div>
             </div>
@@ -280,7 +284,13 @@
                       <i class="fas fa-book mr-1"></i>
                       CHỈ SỐ ĐƯỜNG ĐỜI  
                     </h5>                    
-                    <h1 class="text-center">{{details.info.life_path_number}}</h1>                    
+                    <p>
+                      <h1 class="text-center">
+                        {{details.info.life_path_number}}
+                        <small class="lead"> {{details.lifepath.key_info}} </small>     
+                      </h1> 
+                    </p>                      
+                  </span>              
                   </div>                                   
                   <!-- card tools -->
                   <div class="card-tools">
@@ -291,7 +301,7 @@
                   <!-- /.card-tools -->
                 </div>
                 <div class="card-body">               
-                  {{details.lifepath|safe }} 
+                  {{details.lifepath.meaning|safe }} 
                 </div>
               </div>  
               <!-- /.card -->
@@ -318,7 +328,7 @@
                   <!-- /.card-tools -->
                 </div>                          
                 <div class="card-body">               
-                  {{details.destinypath|safe }} 
+                  {{details.destinypath.meaning|safe }} 
                 </div>
               </div>  
               <!-- /.card -->
@@ -348,7 +358,7 @@
                 <!-- /.card-tools -->
                 </div>
                 <div class="card-body">               
-                  {{details.hearthdesire|safe }} 
+                  {{details.hearthdesire.meaning|safe }} 
                 </div>
               </div>  
               <!-- /.card -->
@@ -375,7 +385,7 @@
                   <!-- /.card-tools -->
                 </div>
                 <div class="card-body">               
-                  {{details.personality|safe }} 
+                  {{details.personality.meaning|safe }} 
                 </div>
               </div>  
               <!-- /.card -->
@@ -404,7 +414,7 @@
                   <!-- /.card-tools -->
                 </div>
                 <div class="card-body">    
-                  {{details.powerpath|safe }} 
+                  {{details.powerpath.meaning|safe }} 
                 </div>
               </div>  
               <!-- /.card -->
@@ -431,7 +441,7 @@
                   <!-- /.card-tools -->
                 </div>
                 <div class="card-body">               
-                  {{details.activepath|safe }} 
+                  {{details.activepath.meaning|safe }} 
                 </div>
               </div>  
               <!-- /.card -->
@@ -460,7 +470,7 @@
                   <!-- /.card-tools -->
                 </div>
                 <div class="card-body">    
-                  {{details.legacypath|safe }} 
+                  {{details.legacypath.meaning|safe }} 
                 </div>
               </div>  
               <!-- /.card -->
@@ -487,7 +497,7 @@
                   <!-- /.card-tools -->
                 </div>
                 <div class="card-body">               
-                  {{details.expressionpath|safe }} 
+                  {{details.expressionpath.meaning|safe }} 
                 </div>
               </div>  
               <!-- /.card -->

@@ -5,12 +5,21 @@ from ckeditor.fields import RichTextField
 
 class MeaningModel(models.Model):
     model_number = models.IntegerField(primary_key=True, unique=True)
-    key_info = models.CharField(max_length=200)
+    key_info = models.CharField(max_length=200, null=True, default='')
     description = RichTextField()
     meaning = RichTextField()
 
     def __str__(self):
-        return self.key_info
+        return f'{self.model_number} - {self.key_info}'
+
+    def to_dict(self):
+        out_dict = {
+            "model_number": self.model_number,
+            "key_info": self.key_info,
+            "description": self.description,
+            "meaning": self.meaning,
+        }
+        return out_dict
         
     class Meta:
         abstract = True
@@ -56,10 +65,10 @@ class ActivePath(MeaningModel):
 
 class LegacyPath(MeaningModel):
     class Meta:    
-        verbose_name = 'Legac'
+        verbose_name = 'Legacy'
         verbose_name_plural = 'Legacy Path' 
 
 class ExpressionPath(MeaningModel):
     class Meta:    
-        verbose_name = 'Expression '
+        verbose_name = 'Expression'
         verbose_name_plural = 'Expression Path' 

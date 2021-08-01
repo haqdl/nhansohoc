@@ -11,7 +11,6 @@ from .models import (
 )
 
 # Register your models here.
-
 admin.site.register(LifePath)
 admin.site.register(DestinyPath)
 admin.site.register(HearthDesire)
