@@ -220,13 +220,18 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-6">
-              <div class="card card-primary card-outline">
+            <div class="col-md-6">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h5 class="m-0">Thông tin cá nhân</h5>
-                  <p class="card-text">
-                    Hãy bắt đầu bằng thông tin về bạn.
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-user-circle mr-1"></i>
+                      Thông tin cá nhân
+                    </h5>
+                    <p class="card-text">
+                      Hãy bắt đầu bằng thông tin về bạn.
                     </p>
+                  </div>
                 </div>
                 <div class="card-body">               
                   <form action="" method="post">
@@ -245,10 +250,16 @@
               </div>  
               <!-- /.card -->
             </div>
-            <!-- /.col-md-6 -->         
-              <div class="card card-primary card-outline">
+            <!-- /.col-md-6 -->    
+            <div class="col-md-6">     
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h5 class="m-0">Tóm tắt</h5>           
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-info-circle mr-1"></i>
+                      Thông tin về bạn
+                    </h5>           
+                  </div>
                 </div>
                 <div class="card-body">
                   <span>Full Name: <b>{{details.info.last_name}} {{details.info.first_name}} </b> <br/></span>
@@ -261,11 +272,23 @@
           </div>
           <!-- /.row -->
           <div class="row">
-            <div class="col-lg-6">
-              <div class="card card-primary card-outline">
+            <div class="col-md-6">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h5 class="m-0">CHỈ SỐ ĐƯỜNG ĐỜI</h5>  
-                  <h1>{{details.info.life_path_number}} 
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-book mr-1"></i>
+                      CHỈ SỐ ĐƯỜNG ĐỜI  
+                    </h5>                    
+                    <h1 class="text-center">{{details.info.life_path_number}}</h1>                    
+                  </div>                                   
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
                 </div>
                 <div class="card-body">               
                   {{details.lifepath|safe }} 
@@ -274,12 +297,26 @@
               <!-- /.card -->
             </div>
             <!-- /.col-md-6 -->         
-            <div class="col-lg-6">
-              <div class="card card-primary card-outline">
+            <div class="col-md-6">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h5 class="m-0">CHỈ SỐ SỨ MỆNH</h5>  
-                  <h1>{{details.info.destiny_number}} 
-                </div>
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bullseye mr-1"></i>
+                      CHỈ SỐ SỨ MỆNH
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.destiny_number}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
+                </div>                          
                 <div class="card-body">               
                   {{details.destinypath|safe }} 
                 </div>
@@ -288,12 +325,27 @@
             </div>
             <!-- /.col-md-6 -->
           </div>
+            <!-- /.row -->
           <div class="row">
             <div class="col-lg-6">
-              <div class="card card-primary card-outline">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h5 class="m-0"> CHỈ SỐ LINH HỒN (chỉ số Động lực tiềm ẩn)</h5>  
-                  <h1>{{details.info.hearth_desire_number}} 
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-cloud mr-1"></i>
+                      CHỈ SỐ LINH HỒN (chỉ số Động lực tiềm ẩn)
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.hearth_desire_number}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                  <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+                <!-- /.card-tools -->
                 </div>
                 <div class="card-body">               
                   {{details.hearthdesire|safe }} 
@@ -303,10 +355,24 @@
             </div>
             <!-- /.col-md-6 -->         
             <div class="col-lg-6">
-              <div class="card card-primary card-outline">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h5 class="m-0">CHỈ SỐ NHÂN CÁCH (chỉ số biểu đạt bên ngoài)</h5>  
-                  <h1>{{details.info.personality_number}} 
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-child mr-1"></i>
+                      CHỈ SỐ NHÂN CÁCH (chỉ số biểu đạt bên ngoài)
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.personality_number}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
                 </div>
                 <div class="card-body">               
                   {{details.personality|safe }} 
@@ -318,10 +384,24 @@
             <!-- /.col-md-6 -->
           <div class="row">
             <div class="col-lg-6">
-              <div class="card card-primary card-outline">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h5 class="m-0">CHỈ SỐ TRƯỞNG THÀNH (Thành tựu)</h5>  
-                  <h1>{{details.info.power_number}} 
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bolt mr-1"></i>
+                      CHỈ SỐ TRƯỞNG THÀNH (Thành tựu)
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.power_number}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
                 </div>
                 <div class="card-body">    
                   {{details.powerpath|safe }} 
@@ -331,10 +411,24 @@
             </div>
             <!-- /.col-md-6 -->         
             <div class="col-lg-6">
-              <div class="card card-primary card-outline">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h5 class="m-0">CHỈ SỐ TÊN HIỆN TẠI</h5>  
-                  <h1>{{details.info.active_number}} 
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bookmark-o mr-1"></i>
+                      CHỈ SỐ TÊN HIỆN TẠI
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.active_number}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
                 </div>
                 <div class="card-body">               
                   {{details.activepath|safe }} 
@@ -346,10 +440,24 @@
           </div>
           <div class="row">
             <div class="col-lg-6">
-              <div class="card card-primary card-outline">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h5 class="m-0">CHỈ SỐ HỌ HIỆN TẠI</h5>  
-                  <h1>{{details.info.legacy_number}} 
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bookmark mr-1"></i>
+                      CHỈ SỐ HỌ HIỆN TẠI
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.legacy_number}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
                 </div>
                 <div class="card-body">    
                   {{details.legacypath|safe }} 
@@ -359,10 +467,24 @@
             </div>
             <!-- /.col-md-6 -->         
             <div class="col-lg-6">
-              <div class="card card-primary card-outline">
+              <div class="card card-primary">
                 <div class="card-header">
-                  <h5 class="m-0">Expression</h5>  
-                  <h1>{{details.info.expression_number}} 
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-envelope mr-1"></i>
+                      Expression
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.expression_number}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
                 </div>
                 <div class="card-body">               
                   {{details.expressionpath|safe }} 
