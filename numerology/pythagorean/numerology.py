@@ -278,13 +278,13 @@ class Numerology:
         """
         if self.birthdate:
             day = self.get_numerology_sum(
-                fct.int_to_tuple(self.birthdate_day), master_number=False
+                fct.int_to_tuple(self.birthdate_day), master_number=True
             )
             month = self.get_numerology_sum(
-                fct.int_to_tuple(self.birthdate_month), master_number=False
+                fct.int_to_tuple(self.birthdate_month), master_number=True
             )
             year = self.get_numerology_sum(
-                fct.int_to_tuple(self.birthdate_year), master_number=False
+                fct.int_to_tuple(self.birthdate_year), master_number=True
             )
             sum = day + month + year
             return self.get_numerology_sum(fct.int_to_tuple(sum), master_number=True)
@@ -317,9 +317,9 @@ class Numerology:
             int: Destiny number.
         """
         active_number = self.get_numerology_sum(
-            self.first_name_num, master_number=False
+            self.first_name_num, master_number=True
         )
-        legacy_number = self.get_numerology_sum(self.last_name_num, master_number=False)
+        legacy_number = self.get_numerology_sum(self.last_name_num, master_number=True)
         return self.get_numerology_sum(
             (active_number, legacy_number), master_number=True
         )
@@ -335,7 +335,7 @@ class Numerology:
         """
         return self.get_numerology_sum(
             fct.int_to_tuple(self.life_path_number + self.destiny_number),
-            master_number=False,
+            master_number=True,
         )
 
     @property
@@ -401,7 +401,7 @@ class Numerology:
         Returns:
             int: The Active Number
         """
-        return self.get_numerology_sum(self.first_name_num, master_number=False)
+        return self.get_numerology_sum(self.first_name_num, master_number=True)
 
     @property
     def legacy_number(self) -> int:
@@ -412,7 +412,7 @@ class Numerology:
         Returns:
             int: The legacy number
         """
-        return self.get_numerology_sum(self.last_name_num, master_number=False)
+        return self.get_numerology_sum(self.last_name_num, master_number=True)
 
     @property
     def full_name_numbers(self) -> Dict[int, int]:
@@ -438,7 +438,7 @@ class Numerology:
 
         Example: The 27 in 1986-03-27 will give 9."""
         return self.get_numerology_sum(
-            fct.int_to_tuple(self.birthdate_day), master_number=False
+            fct.int_to_tuple(self.birthdate_day), master_number=True
         )
 
     @property
@@ -447,7 +447,7 @@ class Numerology:
 
         Example: The 12 in 1986-12-27 will give 3."""
         return self.get_numerology_sum(
-            fct.int_to_tuple(self.birthdate_month), master_number=False
+            fct.int_to_tuple(self.birthdate_month), master_number=True
         )
 
     @property
@@ -457,7 +457,7 @@ class Numerology:
         This method sums-reduces the 4 digits of the year.
         The alternative one sums-reduces the 2 last digits."""
         return self.get_numerology_sum(
-            fct.int_to_tuple(self.birthdate_year), master_number=False
+            fct.int_to_tuple(self.birthdate_year), master_number=True
         )
 
     @property
