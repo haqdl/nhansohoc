@@ -26,8 +26,8 @@ class MeaningModel(models.Model):
 
 class LifePath(MeaningModel):   
     class Meta:    
-        verbose_name = 'SỐ CHỦ ĐẠO'
-        verbose_name_plural = 'CHỈ SỐ CHỦ ĐẠO'
+        verbose_name = 'SỐ ĐƯỜNG ĐỜI'
+        verbose_name_plural = 'CHỈ SỐ ĐƯỜNG ĐỜI'
 
 
 class DestinyPath(MeaningModel):
@@ -38,8 +38,8 @@ class DestinyPath(MeaningModel):
 
 class HearthDesire(MeaningModel):
     class Meta:    
-        verbose_name = 'LINH HỒN'
-        verbose_name_plural = 'CHỈ SỐ LINH HỒN'     
+        verbose_name = 'SỐ ĐỘNG LỰC'
+        verbose_name_plural = 'CHỈ SỐ ĐỘNG LỰC'     
 
 
 class Personality(MeaningModel):
@@ -47,16 +47,69 @@ class Personality(MeaningModel):
         return self.meaning
 
     class Meta:    
-        verbose_name = 'NHÂN CÁCH'
-        verbose_name_plural = 'CHỈ SỐ NHÂN CÁCH'   
+        verbose_name = 'TÍNH CÁCH'
+        verbose_name_plural = 'CHỈ SỐ TÍNH CÁCH'   
 
 
 class PowerPath(MeaningModel):
     class Meta:    
-        verbose_name = 'SỐ TRƯỞNG THÀNH'
-        verbose_name_plural = 'CHỈ SỐ TRƯỞNG THÀNH' 
+        verbose_name = 'THÀNH TỰU'
+        verbose_name_plural = 'CHỈ SỐ THÀNH TỰU' 
 
 
+class AttitudePath(MeaningModel):
+    class Meta:    
+        verbose_name = 'SỐ THÁI ĐỘ'
+        verbose_name_plural = 'CHỈ SỐ THÁI ĐỘ' 
+
+
+class PassionPath(MeaningModel):
+    class Meta:    
+        verbose_name = 'CHỈ SỐ ĐAM MÊ'
+        verbose_name_plural = 'CHỈ SỐ ĐAM MÊ' 
+
+
+class ChallengePath(MeaningModel):
+    class Meta:    
+        verbose_name = 'CHỈ SỐ THÁCH THỨC'
+        verbose_name_plural = 'CHỈ SỐ THÁCH THỨC' 
+
+
+class MissingPath(MeaningModel):
+    class Meta:    
+        verbose_name = 'CHỈ SỐ THIẾU'
+        verbose_name_plural = 'CHỈ SỐ RÈN LUYỆN' 
+
+
+class PyramidPath(MeaningModel):
+    class Meta:    
+        verbose_name = 'CHỈ SỐ CHẶNG'
+        verbose_name_plural = '4 ĐỈNH CAO CUỘC ĐỜI' 
+
+
+class CyclePath(MeaningModel):
+    class Meta:    
+        verbose_name = 'CHỈ SỐ CHU KỲ'
+        verbose_name_plural = '3 GIAI ĐOẠN CỦA CUỘC ĐỜI' 
+
+class BirthdayDayPath(MeaningModel):
+    class Meta:    
+        verbose_name = 'CHỈ SỐ NGÀY SINH'
+        verbose_name_plural = 'CHỈ SỐ NGÀY SINH' 
+
+
+class BirthdayMonthPath(MeaningModel):
+    class Meta:    
+        verbose_name = 'THÁNG CÁ NHÂN'
+        verbose_name_plural = 'CHỈ SỐ THÁNG CÁ NHÂN'    
+
+
+class BirthdayYearPath(MeaningModel):
+    class Meta:    
+        verbose_name = 'NĂM CÁ NHÂN'
+        verbose_name_plural = 'CHỈ SỐ NĂM CÁ NHÂN' 
+
+             
 class ActivePath(MeaningModel):
     class Meta:    
         verbose_name = 'TÊN HIỆN TẠI'
@@ -65,10 +118,6 @@ class ActivePath(MeaningModel):
 
 class LegacyPath(MeaningModel):
     class Meta:    
-        verbose_name = 'Legacy'
-        verbose_name_plural = 'Legacy Path' 
+        verbose_name = 'HỌ HIỆN TẠI'
+        verbose_name_plural = 'CHỈ SỐ HỌ HIỆN TẠI' 
 
-class ExpressionPath(MeaningModel):
-    class Meta:    
-        verbose_name = 'Expression'
-        verbose_name_plural = 'Expression Path' 

@@ -426,10 +426,10 @@
                   <div class="card-title">
                     <h5 class="m-0">
                       <i class="fas fa-bookmark-o mr-1"></i>
-                      CHỈ SỐ TÊN HIỆN TẠI
+                      CHỈ SỐ THÁI ĐỘ
                     </h5>  
                     <h1 class="text-center">
-                      {{details.info.active_number}} 
+                      {{details.info.attitude_number}} 
                     </h1>
                   </div>
                   <!-- card tools -->
@@ -441,13 +441,159 @@
                   <!-- /.card-tools -->
                 </div>
                 <div class="card-body">               
-                  {{details.activepath.meaning|safe }} 
+                  {{details.attitudepath.meaning|safe }} 
+                </div>
+              </div>  
+              <!-- /.card -->
+            </div>
+            <!-- /.col-md-6 -->                       
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bookmark mr-1"></i>
+                      CHỈ SỐ ĐAM MÊ
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.passion_numbers}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
+                </div>
+                <div class="card-body">    
+                  <table>   
+                    {% for passion in details.passionpath %}
+                      <tr>
+                        <td>
+                          {{passion.meaning|safe}}
+                        </td>
+                      </tr>
+                    {% endfor %}        
+                  </table>
+                </div>
+              </div>  
+              <!-- /.card -->
+            </div>
+            <!-- /.col-md-6 -->         
+            <div class="col-lg-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bookmark-o mr-1"></i>
+                      CHỈ SỐ RÈN LUYỆN
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.passion_numbers}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
+                </div>
+                <div class="card-body">               
+                  <table>   
+                    {% for miss in details.missingpath %}
+                      <tr>
+                        <td>
+                          {{miss.meaning|safe }}
+                        </td>
+                      </tr>
+                    {% endfor %}        
+                 </table>                
                 </div>
               </div>  
               <!-- /.card -->
             </div>
             <!-- /.col-md-6 -->
-          </div>
+          </div>   
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bookmark mr-1"></i>
+                      4 ĐỈNH CAO CUỘC ĐỜI
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.passion_numbers}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
+                </div>
+                <div class="card-body">    
+                  UPDATE IN PROGRESS
+                  <table>   
+                    {% for miss in details.missingpath %}
+                      <tr>
+                        <td>
+                          {{miss.meaning|safe }}
+                        </td>
+                      </tr>
+                    {% endfor %}        
+                 </table>                    
+                </div>
+              </div>  
+              <!-- /.card -->
+            </div>
+            <!-- /.col-md-6 -->         
+            <div class="col-lg-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bookmark-o mr-1"></i>
+                      CHỈ SỐ THÁCH THỨC
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.passion_numbers}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
+                </div>
+                <div class="card-body">  
+                  UPDATE IN PROGRESS             
+                  <table>   
+                    {% for miss in details.missingpath %}
+                      <tr>
+                        <td>
+                          {{miss.meaning|safe }}
+                        </td>
+                      </tr>
+                    {% endfor %}        
+                 </table>                
+                </div>
+              </div>  
+              <!-- /.card -->
+            </div>
+            <!-- /.col-md-6 -->
+          </div>                     
           <div class="row">
             <div class="col-lg-6">
               <div class="card card-primary">
@@ -481,11 +627,11 @@
                 <div class="card-header">
                   <div class="card-title">
                     <h5 class="m-0">
-                      <i class="fas fa-envelope mr-1"></i>
-                      Expression
+                      <i class="fas fa-bookmark-o mr-1"></i>
+                      CHỈ SỐ TÊN HIỆN TẠI
                     </h5>  
                     <h1 class="text-center">
-                      {{details.info.expression_number}} 
+                      {{details.info.active_number}} 
                     </h1>
                   </div>
                   <!-- card tools -->
@@ -497,13 +643,69 @@
                   <!-- /.card-tools -->
                 </div>
                 <div class="card-body">               
-                  {{details.expressionpath.meaning|safe }} 
+                  {{details.activepath.meaning|safe }} 
                 </div>
               </div>  
               <!-- /.card -->
             </div>
             <!-- /.col-md-6 -->
           </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bookmark mr-1"></i>
+                      CHỈ SỐ NGÀY SINH
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.birthdate_day_num}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
+                </div>
+                <div class="card-body">    
+                  {{details.daypath.meaning|safe }} 
+                </div>
+              </div>  
+              <!-- /.card -->
+            </div>
+            <!-- /.col-md-6 -->         
+            <div class="col-lg-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bookmark-o mr-1"></i>
+                      CHỈ SỐ THÁNG CÁ NHÂN
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.birthdate_month_num}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
+                </div>
+                <div class="card-body">               
+                  {{details.monthpath.meaning|safe }} 
+                </div>
+              </div>  
+              <!-- /.card -->
+            </div>
+            <!-- /.col-md-6 -->
+          </div>          
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content -->

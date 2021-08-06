@@ -14,7 +14,18 @@ from .models import (
     PowerPath,
     ActivePath,
     LegacyPath,
-    ExpressionPath
+    AttitudePath,
+    PassionPath,
+    ChallengePath,
+    MissingPath,
+    PyramidPath,
+    CyclePath,
+    BirthdayDayPath,
+    BirthdayMonthPath,
+    BirthdayYearPath,
+    ActivePath,
+    LegacyPath
+    
 )
 from .forms import CandidateForm
 
@@ -27,6 +38,17 @@ def get_number_details(model_class, model_number: int) -> dict:
     res =  model_path[0].to_dict() if model_path else model_class().to_dict()
     return res
 
+
+def get_list_details(model_class, number_list: list) -> list:
+    res = []
+    for num in number_list:
+        dtl = get_number_details(
+            model_class=model_class, 
+            model_number=num)
+
+        res.append(dtl)
+    
+    return res
 
 # Create your views here.
 def index(request):
@@ -43,7 +65,7 @@ def index(request):
             first_name=first_name,
             last_name=last_name,
             birthdate=dob,
-            verbose=False
+            verbose=True
         )
         details_dict['info'] = numerology_results.key_figures
         details_dict['dob'] = datetime.strptime(dob, '%Y-%m-%d').strftime('%d-%m-%Y')
@@ -66,47 +88,76 @@ def index(request):
             model_number=numerology_results.life_path_number
         )
         # destiny path
-        details_dict['destinypath'] =get_number_details(
+        details_dict['destinypath'] = get_number_details(
             model_class=DestinyPath,
             model_number=numerology_results.destiny_number
         )
 
         # hearth desire
-        details_dict['hearthdesire'] =get_number_details(
+        details_dict['hearthdesire'] = get_number_details(
             model_class=HearthDesire,
             model_number=numerology_results.hearth_desire_number
         )
 
         # Personality
-        details_dict['personality'] =get_number_details(
+        details_dict['personality'] = get_number_details(
             model_class=Personality,
             model_number=numerology_results.personality_number
         )
 
         # Power path
-        details_dict['powerpath'] =get_number_details(
+        details_dict['powerpath'] = get_number_details(
             model_class=PowerPath,
             model_number=numerology_results.power_number
         )     
 
         # Active path
-        details_dict['activepath'] =get_number_details(
+        details_dict['activepath'] = get_number_details(
             model_class=ActivePath,
             model_number=numerology_results.active_number
         )           
        
         # Legacy path
-        details_dict['legacypath'] =get_number_details(
+        details_dict['legacypath'] = get_number_details(
             model_class=LegacyPath,
             model_number=numerology_results.legacy_number
-        )             
+        )          
 
-        # Expression path
-        details_dict['expressionpath'] =get_number_details(
-            model_class=ExpressionPath,
-            model_number=numerology_results.destiny_number
-        )                 
-         
+        # Attitude Path
+        details_dict['attitudepath'] = get_number_details(
+            model_class=AttitudePath,
+            model_number=numerology_results.attitude_number
+        )  
+
+        # Birthday Day Path
+        details_dict['daypath'] = get_number_details(
+            model_class=BirthdayDayPath,
+            model_number=numerology_results.birthdate_day_num
+        )    
+
+        # Birthday Month Path
+        details_dict['monthpath'] = get_number_details(
+            model_class=BirthdayMonthPath,
+            model_number=numerology_results.birthdate_month_num
+        )
+
+        # Birthday Year Path
+        details_dict['yearpath'] = get_number_details(
+            model_class=BirthdayYearPath,
+            model_number=numerology_results.birthdate_year_num
+        )  
+
+        # Passion Path
+        details_dict['passionpath'] = get_list_details(
+            model_class=BirthdayYearPath,
+            number_list=numerology_results.passion_numbers
+        )  
+
+        # Missing Path
+        details_dict['missingpath'] = get_list_details(
+            model_class=BirthdayYearPath,
+            number_list=numerology_results.passion_numbers
+        )  
 
     candidate_form = CandidateForm()
     return render(

@@ -232,6 +232,8 @@ class Numerology:
             self._key_figures[
                 "full_name_missing_numbers"
             ] = self.full_name_missing_numbers
+            self._key_figures["passion_numbers"] = self.passion_numbers
+
 
         # Birthdate elements (as birthdate is optional)
         if self.birthdate_is_valid:
@@ -250,6 +252,7 @@ class Numerology:
             self._key_figures[
                 "power_number_alternative"
             ] = self.power_number_alternative
+            self._key_figures["attitude_number"] = self.attitude_number
 
     # PROPERTIES
     @property
@@ -279,15 +282,16 @@ class Numerology:
         if self.birthdate:
             day = self.get_numerology_sum(
                 fct.int_to_tuple(self.birthdate_day), master_number=True
-            )
+            ) if self.birthdate_day != 11 else 11
             month = self.get_numerology_sum(
                 fct.int_to_tuple(self.birthdate_month), master_number=True
-            )
+            ) if self.birthdate_month != 11 else 11
             year = self.get_numerology_sum(
                 fct.int_to_tuple(self.birthdate_year), master_number=True
             )
             sum = day + month + year
-            return self.get_numerology_sum(fct.int_to_tuple(sum), master_number=True)
+
+            return self.get_numerology_sum((day, month, year), master_number=True)
 
     @property
     def life_path_number_alternative(self) -> int:
@@ -425,6 +429,20 @@ class Numerology:
         full_name_counter_dict = dict(full_name_counter)
         return full_name_counter_dict
 
+
+    @property
+    def passion_numbers(self) ->Tuple:
+        """Returns the most count numbers from the full name as a dict(Counter).
+
+        The dict contains the numbers and their occurrences."""
+        full_name = self.first_name_cleaned + self.last_name_cleaned
+        full_name_num = fct.match_numbers_to_letters(full_name, self.alphabet)
+        full_name_counter = Counter(full_name_num).most_common()
+        full_name_counter_dict = dict(full_name_counter)
+        most_common_num = max([val for val in full_name_counter_dict.values()])
+        most_common_dict = [int(key) for key, val in full_name_counter_dict.items() if val == most_common_num]
+        return tuple(most_common_dict)
+
     @property
     def full_name_missing_numbers(self) -> Tuple:
         """Returns the missing numbers from the name as a tuple."""
@@ -438,7 +456,7 @@ class Numerology:
 
         Example: The 27 in 1986-03-27 will give 9."""
         return self.get_numerology_sum(
-            fct.int_to_tuple(self.birthdate_day), master_number=True
+            (0, self.birthdate_day), master_number=True
         )
 
     @property
@@ -447,8 +465,8 @@ class Numerology:
 
         Example: The 12 in 1986-12-27 will give 3."""
         return self.get_numerology_sum(
-            fct.int_to_tuple(self.birthdate_month), master_number=True
-        )
+            (0, self.birthdate_month), master_number=True
+        ) 
 
     @property
     def birthdate_year_num(self) -> int:
@@ -468,8 +486,21 @@ class Numerology:
         This alternative one sums-reduces the 2 last digits ((19)58 > 13 > 4)."""
         birthday_year_truncate = fct.int_to_tuple(self.birthdate_year)[-2:]
         return self.get_numerology_sum(
-            fct.int_to_tuple(birthday_year_truncate), master_number=False
+            fct.int_to_tuple(birthday_year_truncate), master_number=True
         )
+
+
+    @property
+    def attitude_number(self) -> int:
+        """Returns the numerology sum of the birthday day and month.
+
+        This method sums-reduces the 4 digits of the year.
+        The alternative one sums-reduces the 2 last digits."""
+        return self.get_numerology_sum(
+            fct.int_to_tuple(self.birthdate_day_num + self.birthdate_month_num),
+            master_number=True,
+        )
+
 
     @property
     def key_figures(self) -> Dict:
