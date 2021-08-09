@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Numerology</title>
+  <title>NHÂN SỐ HỌC</title>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -203,12 +203,12 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Numerology</h1>
+              <h1 class="m-0">NHÂN SỐ HỌC</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Numerology</li>
+                <li class="breadcrumb-item active">NHÂN SỐ HỌC</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -267,7 +267,7 @@
                 </div>
                 <div class="card-body">
                   <span>Tên đầy đủ: <b>{{details.info.last_name}} {{details.info.first_name}} </b> <br/></span>
-                  <span>Ngày Sinh: <b>{{details.dob}} </b><br/></span>
+                  <span>Ngày sinh: <b>{{details.dob}} </b><br/></span>
                   <span>Ngày dự báo: <b>{{details.fortune_day}} </b></span>                  
                 </div>
               </div>
@@ -370,7 +370,7 @@
                   <div class="card-title">
                     <h5 class="m-0">
                       <i class="fas fa-child mr-1"></i>
-                      CHỈ SỐ NHÂN CÁCH (chỉ số biểu đạt bên ngoài)
+                      CHỈ SỐ TÍNH CÁCH (chỉ số biểu đạt bên ngoài)
                     </h5>  
                     <h1 class="text-center">
                       {{details.info.personality_number}} 
@@ -473,6 +473,11 @@
                   <table>   
                     {% for passion in details.passionpath %}
                       <tr>
+                        <th>
+                          CHỈ SỐ ĐAM MÊ {{passion.model_number}}
+                        </th>
+                      </tr>
+                      <tr>
                         <td>
                           {{passion.meaning|safe}}
                         </td>
@@ -493,7 +498,7 @@
                       CHỈ SỐ RÈN LUYỆN
                     </h5>  
                     <h1 class="text-center">
-                      {{details.info.passion_numbers}} 
+                      {{details.info.full_name_missing_numbers}} 
                     </h1>
                   </div>
                   <!-- card tools -->
@@ -507,6 +512,11 @@
                 <div class="card-body">               
                   <table>   
                     {% for miss in details.missingpath %}
+                      <tr>
+                        <th>
+                          CHỈ SỐ RÈN LUYỆN {{miss.model_number}}
+                        </th>
+                      </tr>
                       <tr>
                         <td>
                           {{miss.meaning|safe }}
@@ -530,7 +540,7 @@
                       4 ĐỈNH CAO CUỘC ĐỜI
                     </h5>  
                     <h1 class="text-center">
-                      {{details.info.passion_numbers}} 
+                      {{details.info.pyramid_numbers}} 
                     </h1>
                   </div>
                   <!-- card tools -->
@@ -542,12 +552,16 @@
                   <!-- /.card-tools -->
                 </div>
                 <div class="card-body">    
-                  UPDATE IN PROGRESS
                   <table>   
-                    {% for miss in details.missingpath %}
+                    {% for pyr in details.pyramidpath %}
+                      <tr>
+                        <th>
+                          ĐỈNH CAO  {{ forloop.counter }}
+                        </th>
+                      </tr>
                       <tr>
                         <td>
-                          {{miss.meaning|safe }}
+                          {{pyr.meaning|safe }}
                         </td>
                       </tr>
                     {% endfor %}        
@@ -566,7 +580,7 @@
                       CHỈ SỐ THÁCH THỨC
                     </h5>  
                     <h1 class="text-center">
-                      {{details.info.passion_numbers}} 
+                      {{details.info.challenge_numbers}} 
                     </h1>
                   </div>
                   <!-- card tools -->
@@ -578,12 +592,17 @@
                   <!-- /.card-tools -->
                 </div>
                 <div class="card-body">  
-                  UPDATE IN PROGRESS             
                   <table>   
-                    {% for miss in details.missingpath %}
+                    {% for chall in details.challengepath %}
                       <tr>
+                        <th>
+                          THÁCH THỨC  {{ forloop.counter }}
+                        </th> 
+                      </tr>
+                      <tr> 
                         <td>
-                          {{miss.meaning|safe }}
+                          
+                          {{chall.meaning|safe }}
                         </td>
                       </tr>
                     {% endfor %}        
@@ -660,7 +679,7 @@
                       CHỈ SỐ NGÀY SINH
                     </h5>  
                     <h1 class="text-center">
-                      {{details.info.birthdate_day_num}} 
+                      {{details.info.birthdate_day}} 
                     </h1>
                   </div>
                   <!-- card tools -->

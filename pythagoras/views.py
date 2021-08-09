@@ -132,15 +132,16 @@ def index(request):
         # Birthday Day Path
         details_dict['daypath'] = get_number_details(
             model_class=BirthdayDayPath,
-            model_number=numerology_results.birthdate_day_num
+            model_number=numerology_results.birthdate_day
         )    
+        print(numerology_results.birthdate_day)
 
         # Birthday Month Path
         details_dict['monthpath'] = get_number_details(
             model_class=BirthdayMonthPath,
             model_number=numerology_results.birthdate_month_num
         )
-
+        
         # Birthday Year Path
         details_dict['yearpath'] = get_number_details(
             model_class=BirthdayYearPath,
@@ -149,15 +150,28 @@ def index(request):
 
         # Passion Path
         details_dict['passionpath'] = get_list_details(
-            model_class=BirthdayYearPath,
+            model_class=PassionPath,
             number_list=numerology_results.passion_numbers
         )  
 
         # Missing Path
         details_dict['missingpath'] = get_list_details(
-            model_class=BirthdayYearPath,
-            number_list=numerology_results.passion_numbers
+            model_class=MissingPath,
+            number_list=numerology_results.full_name_missing_numbers
         )  
+
+        # Challenge Path
+        details_dict['challengepath'] = get_list_details(
+            model_class=ChallengePath,
+            number_list=numerology_results.challenge_numbers
+        )  
+
+        # Pyramid Path
+        details_dict['pyramidpath'] = get_list_details(
+            model_class=PyramidPath,
+            number_list=numerology_results.pyramid_numbers
+        )  
+
 
     candidate_form = CandidateForm()
     return render(

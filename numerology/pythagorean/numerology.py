@@ -150,7 +150,7 @@ class Numerology:
         sum = math.fsum(tuple_obj)
 
         if master_number:
-            while not (sum <= upper_bound or (sum % 11) == 0):
+            while not (sum <= upper_bound or (sum in (11, 22, 33))):
                 sum = math.fsum(tuple(int(num) for num in str(int(sum))))
         else:
             while not (sum <= upper_bound):
@@ -238,6 +238,10 @@ class Numerology:
         # Birthdate elements (as birthdate is optional)
         if self.birthdate_is_valid:
             self._key_figures["birthdate"] = self.birthdate
+            self._key_figures["birthdate_day"] = self.birthdate_day
+            self._key_figures["birthdate_month"] = self.birthdate_month
+            self._key_figures["birthdate_year"] = self.birthdate_year
+
             self._key_figures["life_path_number"] = self.life_path_number
             self._key_figures[
                 "life_path_number_alternative"
@@ -253,6 +257,9 @@ class Numerology:
                 "power_number_alternative"
             ] = self.power_number_alternative
             self._key_figures["attitude_number"] = self.attitude_number
+            self._key_figures["challenge_numbers"] = self.challenge_numbers
+            self._key_figures["pyramid_numbers"] = self.pyramid_numbers
+
 
     # PROPERTIES
     @property
@@ -501,6 +508,56 @@ class Numerology:
             master_number=True,
         )
 
+    @property
+    def challenge_numbers(self) -> tuple:
+        """Returns 4 challenge numbers.
+
+        Challenge #1: abs(birthday_day - birthday_month)
+        Challenge #2: abs(birthday_day - birthday_year)
+        Challenge #3: abs(#1 - #2)
+        Challenge #4: abs(bitrhday_month - bitrhday_year)."""
+
+        challenge_1 = self.get_numerology_sum(
+                        (0, abs(self.birthdate_day - self.birthdate_month)),
+                        master_number=True
+                    )
+        challenge_2 = self.get_numerology_sum(
+                        fct.int_to_tuple(abs(self.birthdate_day - self.birthdate_year)),
+                        master_number=True
+                    )
+        challenge_3 = abs(challenge_1 - challenge_2)
+        challenge_4 = self.get_numerology_sum(
+                        fct.int_to_tuple(abs(self.birthdate_month - self.birthdate_year)),
+                        master_number=True
+                    )
+
+        return (challenge_1 , challenge_2, challenge_3, challenge_4)
+
+
+    @property
+    def pyramid_numbers(self) -> tuple:
+        """Returns 4 top success numbers (pyramid).
+
+        pyramid #1: sums-reduces of (birthday_day + birthday_month)
+        pyramid #2: sums-reduces of (birthday_day + birthday_year)
+        pyramid #3: sums-reduces of (#1 + #2)
+        pyramid #4: sums-reduces of (bitrhday_month - bitrhday_year)."""
+
+        pyr_1 = self.get_numerology_sum(
+                    (0, self.birthdate_day_num + self.birthdate_month_num), 
+                    master_number=True
+                )
+        pyr_2 =self.get_numerology_sum(
+                    (self.birthdate_day_num, self.birthdate_year_num),
+                    master_number=True
+                )
+        pyr_3 = self.get_numerology_sum((pyr_1, pyr_2), master_number=True)
+        pyr_4 = self.get_numerology_sum(
+                    (self.birthdate_month_num, self.birthdate_year_num),
+                    master_number=True
+                )
+
+        return (pyr_1 , pyr_2, pyr_3, pyr_4)        
 
     @property
     def key_figures(self) -> Dict:

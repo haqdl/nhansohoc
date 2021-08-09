@@ -43,9 +43,6 @@ class HearthDesire(MeaningModel):
 
 
 class Personality(MeaningModel):
-    def __str__(self):
-        return self.meaning
-
     class Meta:    
         verbose_name = 'TÍNH CÁCH'
         verbose_name_plural = 'CHỈ SỐ TÍNH CÁCH'   
