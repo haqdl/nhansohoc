@@ -5,5 +5,5 @@ app_name = 'pythagoras'
 urlpatterns = [
     path('', views.index, name='index'),
     path('details/', views.details, name='details'),
-    path('results/', views.results, name='results'),
+    path('report/', views.report, name='report'),
 ]

@@ -150,7 +150,7 @@ class Numerology:
         sum = math.fsum(tuple_obj)
 
         if master_number:
-            while not (sum <= upper_bound or (sum in (11, 22, 33))):
+            while not (sum <= upper_bound or (sum % 11) == 0):
                 sum = math.fsum(tuple(int(num) for num in str(int(sum))))
         else:
             while not (sum <= upper_bound):
@@ -247,8 +247,11 @@ class Numerology:
                 "life_path_number_alternative"
             ] = self.life_path_number_alternative
             self._key_figures["birthdate_day_num"] = self.birthdate_day_num
+            self._key_figures["birthdate_day_num_alt"] = self.birthdate_day_num_alt
             self._key_figures["birthdate_month_num"] = self.birthdate_month_num
+            self._key_figures["birthdate_month_num_alt"] = self.birthdate_month_num_alt
             self._key_figures["birthdate_year_num"] = self.birthdate_year_num
+            self._key_figures["birthdate_year_num_alt"] = self.birthdate_year_num_alt
             self._key_figures[
                 "birthdate_year_num_alternative"
             ] = self.birthdate_year_num_alternative
@@ -259,6 +262,7 @@ class Numerology:
             self._key_figures["attitude_number"] = self.attitude_number
             self._key_figures["challenge_numbers"] = self.challenge_numbers
             self._key_figures["pyramid_numbers"] = self.pyramid_numbers
+            self._key_figures["pyramid_ages"] = self.pyramid_ages 
 
 
     # PROPERTIES
@@ -287,18 +291,10 @@ class Numerology:
             int: Life Path Number (Initial method).
         """
         if self.birthdate:
-            day = self.get_numerology_sum(
-                fct.int_to_tuple(self.birthdate_day), master_number=True
-            ) if self.birthdate_day != 11 else 11
-            month = self.get_numerology_sum(
-                fct.int_to_tuple(self.birthdate_month), master_number=True
-            ) if self.birthdate_month != 11 else 11
-            year = self.get_numerology_sum(
-                fct.int_to_tuple(self.birthdate_year), master_number=True
-            )
-            sum = day + month + year
-
-            return self.get_numerology_sum((day, month, year), master_number=True)
+            return self.get_numerology_sum(
+                        (self.birthdate_day_num, self.birthdate_month_num, self.birthdate_year_num), 
+                        master_number=True
+                    )
 
     @property
     def life_path_number_alternative(self) -> int:
@@ -323,17 +319,30 @@ class Numerology:
         """Returns the Destiny Number.
 
         Sometimes called Expression Number or Lucky Number, it indicates the personal interest, unique capabilities and talents.
-
+        ***NOTES: current method have some different with standard method
         Returns:
             int: Destiny number.
         """
-        active_number = self.get_numerology_sum(
-            self.first_name_num, master_number=True
-        )
-        legacy_number = self.get_numerology_sum(self.last_name_num, master_number=True)
-        return self.get_numerology_sum(
-            (active_number, legacy_number), master_number=True
-        )
+        # active_number = self.get_numerology_sum(
+        #     self.first_name_num, master_number=True
+        # )
+        # legacy_number = self.get_numerology_sum(self.last_name_num, master_number=True)
+        # return self.get_numerology_sum(
+        #     (active_number, legacy_number), master_number=True
+        # )
+        full_name_destiny = self.first_name.strip() + ' ' + self.last_name.strip()
+        full_name_arr = full_name_destiny.split()
+        name_num_arr = []
+        for word in full_name_arr:
+            clean_word = fct.keep_valid_letters(word, self.alphabet)
+            word_num = self.get_numerology_sum(
+                            fct.match_numbers_to_letters(clean_word, self.alphabet),
+                            master_number=True
+                        )
+            name_num_arr.append(word_num)
+
+        return self.get_numerology_sum(tuple(name_num_arr), master_number=True)
+
 
     @property
     def power_number(self) -> int:
@@ -345,7 +354,7 @@ class Numerology:
             int: [description]
         """
         return self.get_numerology_sum(
-            fct.int_to_tuple(self.life_path_number + self.destiny_number),
+            (self.life_path_number, self.destiny_number),
             master_number=True,
         )
 
@@ -359,7 +368,7 @@ class Numerology:
             int: [description]
         """
         return self.get_numerology_sum(
-            fct.int_to_tuple(self.life_path_number_alternative + self.destiny_number),
+            (self.life_path_number_alternative, self.destiny_number),
             master_number=False,
         )
 
@@ -381,7 +390,8 @@ class Numerology:
             ),
             self.alphabet,
         )
-        return self.get_numerology_sum(consonants_in_name_num)
+        ret_num = self.get_numerology_sum(consonants_in_name_num) 
+        return ret_num if ret_num <= 22 else self.get_numerology_sum(fct.int_to_tuple(ret_num)) 
 
     @property
     def hearth_desire_number(self) -> int:
@@ -401,7 +411,9 @@ class Numerology:
             ),
             self.alphabet,
         )
-        return self.get_numerology_sum(vowels_in_name_num)
+        ret_num = self.get_numerology_sum(vowels_in_name_num)
+        return ret_num if ret_num <= 22 else self.get_numerology_sum(fct.int_to_tuple(ret_num)) 
+
 
     @property
     def active_number(self) -> int:
@@ -412,7 +424,9 @@ class Numerology:
         Returns:
             int: The Active Number
         """
-        return self.get_numerology_sum(self.first_name_num, master_number=True)
+        ret_num = self.get_numerology_sum(self.first_name_num, master_number=True)
+        return ret_num if ret_num <= 22 else self.get_numerology_sum(fct.int_to_tuple(ret_num)) 
+
 
     @property
     def legacy_number(self) -> int:
@@ -423,7 +437,9 @@ class Numerology:
         Returns:
             int: The legacy number
         """
-        return self.get_numerology_sum(self.last_name_num, master_number=True)
+        ret_num = self.get_numerology_sum(self.last_name_num, master_number=True)
+        return ret_num if ret_num <= 22 else self.get_numerology_sum(fct.int_to_tuple(ret_num)) 
+
 
     @property
     def full_name_numbers(self) -> Dict[int, int]:
@@ -467,6 +483,15 @@ class Numerology:
         )
 
     @property
+    def birthdate_day_num_alt(self) -> int:
+        """Returns the numerology sum-reduce of the birthday day.
+
+        Example: The 27 in 1986-03-27 will give 9."""
+        return self.get_numerology_sum(
+            (0, self.birthdate_day), master_number=False
+        )        
+
+    @property
     def birthdate_month_num(self) -> int:
         """Returns the numerology sum of the birthday month.
 
@@ -476,6 +501,15 @@ class Numerology:
         ) 
 
     @property
+    def birthdate_month_num_alt(self) -> int:
+        """Returns the numerology sum-reduce of the birthday month.
+
+        Example: The 12 in 1986-12-27 will give 3."""
+        return self.get_numerology_sum(
+            (0, self.birthdate_month), master_number=False
+        )        
+
+    @property
     def birthdate_year_num(self) -> int:
         """Returns the numerology sum of the birthday year.
 
@@ -483,6 +517,16 @@ class Numerology:
         The alternative one sums-reduces the 2 last digits."""
         return self.get_numerology_sum(
             fct.int_to_tuple(self.birthdate_year), master_number=True
+        )
+
+    @property
+    def birthdate_year_num_alt(self) -> int:
+        """Returns the numerology sum of the birthday year.
+
+        This method sums-reduces the 4 digits of the year.
+        The alternative one sums-reduces the 2 last digits."""
+        return self.get_numerology_sum(
+            fct.int_to_tuple(self.birthdate_year), master_number=False
         )
 
     @property
@@ -499,12 +543,9 @@ class Numerology:
 
     @property
     def attitude_number(self) -> int:
-        """Returns the numerology sum of the birthday day and month.
-
-        This method sums-reduces the 4 digits of the year.
-        The alternative one sums-reduces the 2 last digits."""
+        """Returns the numerology sum of the birthday day and month."""
         return self.get_numerology_sum(
-            fct.int_to_tuple(self.birthdate_day_num + self.birthdate_month_num),
+            (self.birthdate_day_num, self.birthdate_month_num),
             master_number=True,
         )
 
@@ -515,21 +556,13 @@ class Numerology:
         Challenge #1: abs(birthday_day - birthday_month)
         Challenge #2: abs(birthday_day - birthday_year)
         Challenge #3: abs(#1 - #2)
-        Challenge #4: abs(bitrhday_month - bitrhday_year)."""
+        Challenge #4: abs(bitrhday_month - birthday_year)."""
 
-        challenge_1 = self.get_numerology_sum(
-                        (0, abs(self.birthdate_day - self.birthdate_month)),
-                        master_number=True
-                    )
-        challenge_2 = self.get_numerology_sum(
-                        fct.int_to_tuple(abs(self.birthdate_day - self.birthdate_year)),
-                        master_number=True
-                    )
+        #calculate
+        challenge_1 = abs(self.birthdate_day_num_alt - self.birthdate_month_num_alt)
+        challenge_2 = abs(self.birthdate_day_num_alt - self.birthdate_year_num_alt)
         challenge_3 = abs(challenge_1 - challenge_2)
-        challenge_4 = self.get_numerology_sum(
-                        fct.int_to_tuple(abs(self.birthdate_month - self.birthdate_year)),
-                        master_number=True
-                    )
+        challenge_4 = abs(self.birthdate_month_num_alt - self.birthdate_year_num_alt)
 
         return (challenge_1 , challenge_2, challenge_3, challenge_4)
 
@@ -540,24 +573,50 @@ class Numerology:
 
         pyramid #1: sums-reduces of (birthday_day + birthday_month)
         pyramid #2: sums-reduces of (birthday_day + birthday_year)
-        pyramid #3: sums-reduces of (#1 + #2)
-        pyramid #4: sums-reduces of (bitrhday_month - bitrhday_year)."""
+        pyramid #3: (#1 + #2)
+        pyramid #4: (bitrhday_month - bitrhday_year)."""
 
         pyr_1 = self.get_numerology_sum(
-                    (0, self.birthdate_day_num + self.birthdate_month_num), 
-                    master_number=True
+                    (self.birthdate_day_num_alt, self.birthdate_month_num_alt), 
+                    master_number=False
                 )
         pyr_2 =self.get_numerology_sum(
-                    (self.birthdate_day_num, self.birthdate_year_num),
-                    master_number=True
+                    (self.birthdate_day_num_alt, self.birthdate_year_num_alt),
+                    master_number=False
                 )
-        pyr_3 = self.get_numerology_sum((pyr_1, pyr_2), master_number=True)
+        pyr_3 = self.get_numerology_sum(
+                    (pyr_1, pyr_2),
+                    upper_bound=11,
+                    master_number=False
+                )
         pyr_4 = self.get_numerology_sum(
-                    (self.birthdate_month_num, self.birthdate_year_num),
-                    master_number=True
+                    (self.birthdate_month_num_alt, self.birthdate_year_num_alt),
+                    upper_bound=11,
+                    master_number=False
                 )
 
-        return (pyr_1 , pyr_2, pyr_3, pyr_4)        
+
+        return pyr_1 , pyr_2, pyr_3, pyr_4        
+
+
+    @property
+    def pyramid_ages(self) -> tuple:
+        """Returns age of 4 top success numbers (pyramid).
+
+        https://tracuuthansohoc.com/kim-tu-thap-than-so-hoc/."""
+
+        master_num = self.get_numerology_sum(
+                    (0, self.life_path_number), 
+                    upper_bound=11,
+                    master_number=False
+                )
+        age_1 = 36 - master_num
+        age_2 = age_1 + 9 
+        age_3 = age_2 + 9 
+        age_4 = age_3 + 9 
+
+
+        return age_1, age_2, age_3, age_4  
 
     @property
     def key_figures(self) -> Dict:

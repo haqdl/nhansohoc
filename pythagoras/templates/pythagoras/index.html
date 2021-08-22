@@ -247,9 +247,9 @@
                           </td>
                         </tr>
                       {% endfor %}        
-                  </table>        
-                    <input type="submit" value="Calculate">
-                    </form>                  
+                    </table>        
+                    <input class="btn btn-primary btn-sm" type="submit" value="Calculate">
+                  </form>                  
                 </div>
               </div>  
               <!-- /.card -->
@@ -268,7 +268,13 @@
                 <div class="card-body">
                   <span>Tên đầy đủ: <b>{{details.info.last_name}} {{details.info.first_name}} </b> <br/></span>
                   <span>Ngày sinh: <b>{{details.dob}} </b><br/></span>
-                  <span>Ngày dự báo: <b>{{details.fortune_day}} </b></span>                  
+                  <span>Ngày dự báo: <b>{{details.fortune_day}} </b></span>     
+                  <span>
+                    <form action="/report/" method="post">
+                      {% csrf_token %}
+                      <input class="btn btn-primary btn-sm" type="submit" value="Download PDF Report">
+                    </form>
+                  </span>             
                 </div>
               </div>
             </div>
@@ -556,7 +562,17 @@
                     {% for pyr in details.pyramidpath %}
                       <tr>
                         <th>
-                          ĐỈNH CAO  {{ forloop.counter }}
+                          ĐỈNH CAO  {{ forloop.counter }} - 
+                          {% if forloop.counter == 1 %}
+                            {{details.info.pyramid_ages.0}}
+                          {% elif forloop.counter == 2 %}
+                            {{details.info.pyramid_ages.1}}
+                          {% elif forloop.counter == 3 %}
+                            {{details.info.pyramid_ages.2}}  
+                          {% else %}                          
+                            {{details.info.pyramid_ages.3}}                          
+                          {% endif %}
+                          tuổi
                         </th>
                       </tr>
                       <tr>
@@ -724,7 +740,41 @@
               <!-- /.card -->
             </div>
             <!-- /.col-md-6 -->
-          </div>          
+          </div>  
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bookmark mr-1"></i>
+                      CHỈ SỐ NĂM CÁ NHÂN
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.birthdate_year_num_alt}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
+                </div>
+                <div class="card-body">    
+                  {{details.yearpath.meaning|safe }} 
+                </div>
+              </div>  
+              <!-- /.card -->
+            </div>
+            <!-- /.col-md-6 -->         
+            <div class="col-lg-6">
+
+              <!-- /.card -->
+            </div>
+            <!-- /.col-md-6 -->
+          </div>                  
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content -->
