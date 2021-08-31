@@ -1,0 +1,444 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>  
+  <meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NHÂN SỐ HỌC</title>  
+  <style type="text/css">
+    
+    @font-face {
+      font-family: Helvetica;
+      src: url(assets/fonts/helvetica/helveticaneue.ttf);
+    }
+    @page title_template { margin: 5cm; }
+    @page regular_template { margin: 2cm; }
+    @page {
+      font-family: Arial, Helvetica, sans-serif;
+      size: letter portrait;    
+      @frame header_frame {           /* Static Frame */
+        -pdf-frame-content: header_content;
+        left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+        align-content: center;
+      }
+      @frame content_frame {          /* Content Frame */
+        left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+      }
+      @frame footer_frame {           /* Another static Frame */
+        -pdf-frame-content: footer_content;
+        left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+      }
+    }
+    h1{
+		font-size: 16px;
+		color: blue;
+		margin-bottom: 4%;
+		text-align: center;
+	  }
+    .card {
+      position: relative;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: #fff;
+      background-clip: border-box;
+      border: 0 solid rgba(0, 0, 0, 0.125);
+      border-radius: 0.25rem;
+    }    
+    .content-header {
+      padding: 15px 0.5rem;
+    }
+    .card-primary {
+      background-color: #fff;
+    }    
+    .card-header {
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 0;
+      background-color: #007bff;
+      border-bottom: 0 solid rgba(0, 0, 0, 0.125);
+    }    
+    .card-body {
+      -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      min-height: 1px;
+      padding: 1.25rem;
+    }
+    .card-title {
+     margin-bottom: 0.75rem;
+    }    
+  </style>
+
+</head>
+<body>
+  <div class="wrapper"> 
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div id="header_content">        
+        <h1>NHÂN SỐ HỌC</h1>    
+        <hr />  
+      </div>
+      <!-- /.content-header -->  
+      <!-- Main content -->
+      <div class="content">        
+          <div class="row">              
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>
+                    <img src='assets/adminlte/dist/img/user2-160x160.jpg'>
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Thông tin về bạn
+                  </h5>           
+                </div>
+              </div>
+              <div class="card-body">
+                <span>Tên đầy đủ: <b>{{details.info.last_name}} {{details.info.first_name}} </b> <br/></span>
+                <span>Ngày sinh: <b>{{details.dob}} </b><br/></span>
+                <span>Ngày dự báo: <b>{{details.fortune_day}} </b></span>                         
+              </div>
+            </div>
+            
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>CHỈ SỐ ĐƯỜNG ĐỜI</h1>                    
+                  <p>
+                    <h1 class="text-center">
+                      {{details.info.life_path_number}}
+                      <small class="lead"> {{details.lifepath.key_info}} </small>     
+                    </h1> 
+                  </p>                                              
+                </div>                                                   
+              </div>
+              <div class="card-body">               
+                {{details.lifepath.meaning|safe }} 
+              </div>
+            </div>  
+            <!-- /.card -->          
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <!-- /.col-md-12 -->         
+            
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1> CHỈ SỐ SỨ MỆNH</h1>  
+                  <h1 class="text-center">
+                    {{details.info.destiny_number}} 
+                  </h1>
+                </div>
+              </div>                          
+              <div class="card-body">               
+                {{details.destinypath.meaning|safe }} 
+              </div>
+            </div>  
+            <!-- /.card -->
+            
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>CHỈ SỐ LINH HỒN (chỉ số Động lực tiềm ẩn)</h1>
+                  <h1 class="text-center">
+                    {{details.info.hearth_desire_number}} 
+                  </h1>
+                </div>
+              </div>
+              <div class="card-body">               
+                {{details.hearthdesire.meaning|safe }} 
+              </div>
+            </div>  
+            <!-- /.card -->
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>CHỈ SỐ TÍNH CÁCH (chỉ số biểu đạt bên ngoài)</h1>                  
+                  <h1 class="text-center">
+                    {{details.info.personality_number}} 
+                  </h1>
+                </div>                  
+              </div>
+              <div class="card-body">               
+                {{details.personality.meaning|safe }} 
+              </div>
+            </div>  
+            <!-- /.card -->
+          </div>
+          <div class="row">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>CHỈ SỐ TRƯỞNG THÀNH (Thành tựu)</h1>                  
+                  <h1 class="text-center">
+                    {{details.info.power_number}} 
+                  </h1>
+                </div>                 
+              </div>
+              <div class="card-body">    
+                {{details.powerpath.meaning|safe }} 
+              </div>
+            </div>  
+            <!-- /.card -->
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>CHỈ SỐ THÁI ĐỘ</h1>                    
+                  <h1 class="text-center">
+                    {{details.info.attitude_number}} 
+                  </h1>
+                </div>                  
+              </div>
+              <div class="card-body">               
+                {{details.attitudepath.meaning|safe }} 
+              </div>
+            </div>  
+            <!-- /.card -->
+          </div>
+          <div class="row">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>CHỈ SỐ ĐAM MÊ</h1>                    
+                  <h1 class="text-center">
+                    {{details.info.passion_numbers}} 
+                  </h1>
+                </div>                  
+              </div>
+              <div class="card-body">    
+                <table>   
+                  {% for passion in details.passionpath %}
+                    <tr>
+                      <th align="left">
+                        CHỈ SỐ ĐAM MÊ {{passion.model_number}}
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>
+                        {{passion.meaning|safe}}
+                      </td>
+                    </tr>
+                  {% endfor %}        
+                </table>
+              </div>
+            </div>  
+            <!-- /.card -->
+          
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>
+                    CHỈ SỐ RÈN LUYỆN
+                  </h1>  
+                  <h1 class="text-center">
+                    {{details.info.full_name_missing_numbers}} 
+                  </h1>
+                </div>                 
+              </div>
+              <div class="card-body">               
+                <table>   
+                  {% for miss in details.missingpath %}
+                    <tr>
+                      <th  align="left">
+                        CHỈ SỐ RÈN LUYỆN {{miss.model_number}}
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>
+                        {{miss.meaning|safe }}
+                      </td>
+                    </tr>
+                  {% endfor %}        
+                </table>                
+              </div>
+            </div>  
+            <!-- /.card -->
+          </div>   
+          <div class="row">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>
+                    4 ĐỈNH CAO CUỘC ĐỜI
+                  </h1>  
+                  <h1 class="text-center">
+                    {{details.info.pyramid_numbers}} 
+                  </h1>
+                </div>                  
+              </div>
+              <div class="card-body">    
+                <table>   
+                  {% for pyr in details.pyramidpath %}
+                    <tr>
+                      <th align="left">
+                        ĐỈNH CAO  {{ forloop.counter }} - 
+                        {% if forloop.counter == 1 %}
+                          {{details.info.pyramid_ages.0}}
+                        {% elif forloop.counter == 2 %}
+                          {{details.info.pyramid_ages.1}}
+                        {% elif forloop.counter == 3 %}
+                          {{details.info.pyramid_ages.2}}  
+                        {% else %}                          
+                          {{details.info.pyramid_ages.3}}                          
+                        {% endif %}
+                        tuổi
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>
+                        {{pyr.meaning|safe }}
+                      </td>
+                    </tr>
+                  {% endfor %}        
+                </table>                    
+              </div>
+            </div>  
+            <!-- /.card -->
+          </div>
+          <!-- /.row -->
+          <div class="row">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>
+                    CHỈ SỐ THÁCH THỨC
+                  </h5>  
+                  <h1 class="text-center">
+                    {{details.info.challenge_numbers}} 
+                  </h1>
+                </div>                  
+              </div>
+              <div class="card-body">  
+                <table>   
+                  {% for chall in details.challengepath %}
+                    <tr>
+                      <th align="left">
+                        THÁCH THỨC  {{ forloop.counter }}
+                      </th> 
+                    </tr>
+                    <tr> 
+                      <td>
+                        
+                        {{chall.meaning|safe }}
+                      </td>
+                    </tr>
+                  {% endfor %}        
+                </table>                
+              </div>
+            </div>  
+            <!-- /.card -->
+        
+          </div>                     
+          <div class="row">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>
+                    CHỈ SỐ HỌ HIỆN TẠI
+                  </h1>  
+                  <h1 class="text-center">
+                    {{details.info.legacy_number}} 
+                  </h1>
+                </div>                 
+              </div>
+              <div class="card-body">    
+                {{details.legacypath.meaning|safe }} 
+              </div>
+            </div>  
+            <!-- /.card -->
+            </div>
+          </div>
+          <!-- /.row -->
+          <div class="row">            
+            <div class="card card-primary">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>
+                    CHỈ SỐ TÊN HIỆN TẠI
+                  </h1>  
+                  <h1 class="text-center">
+                    {{details.info.active_number}} 
+                  </h1>
+                </div>                  
+              </div>
+              <div class="card-body">               
+                {{details.activepath.meaning|safe }} 
+              </div>
+            </div>  
+            <!-- /.card -->
+          </div>
+          <div class="row">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>
+                    CHỈ SỐ NGÀY SINH
+                  </h1>  
+                  <h1 class="text-center">
+                    {{details.info.birthdate_day}} 
+                  </h1>
+                </div>                  
+              </div>
+              <div class="card-body">    
+                {{details.daypath.meaning|safe }} 
+              </div>
+            </div>  
+            <!-- /.card -->
+          </div>
+          <!-- /.row -->
+          <div class="row">            
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title">
+                  <h1>
+                    CHỈ SỐ THÁNG CÁ NHÂN
+                  </h1>  
+                  <h1 class="text-center">
+                    {{details.info.birthdate_month_num}} 
+                  </h1>
+                </div>                 
+              </div>
+              <div class="card-body">               
+                {{details.monthpath.meaning|safe }} 
+              </div>
+            </div>  
+            <!-- /.card -->
+          </div>          
+        
+      </div>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- Main Footer -->
+    <footer class="main-footer">      
+      <div id="footer_content">        
+        page <pdf:pagenumber> of <pdf:pagecount>   
+      </div>
+      <!-- Default to the left -->
+      <strong>Copyright &copy; 2020-2021 <a href="#">Nhân Số Học</a>.</strong> All rights reserved.
+    </footer>
+  </div>
+  <!-- ./wrapper -->
+</body>
+</html>  

@@ -7,7 +7,7 @@ from django import template
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 from numerology import Pythagorean
-from .render import Render
+from . import pdf_render 
 
 from .models import (
     LifePath,
@@ -200,7 +200,18 @@ def details(request, index_number=0):
 
 
 def report(request):
+    details_dict = {}
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        dob = request.POST['date_of_birth']
+        birthday = datetime.strptime(dob, '%d-%m-%Y') 
+        details_dict = build_numerology_details(
+            first_name=first_name, 
+            last_name=last_name, 
+            dob=birthday.strftime('%Y-%m-%d')
+        )
     params = {
-        'request': request
+        'request': request, 'details': details_dict
     }
-    return Render.render('pythagoras/report.html', params)
+    return pdf_render.render_pdf_view('pythagoras/report.html', params)

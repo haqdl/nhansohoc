@@ -127,3 +127,5 @@ CKEDITOR_UPLOAD_PATH = "/static/uploads/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"), 
 ]
+
+DOWNLOAD_ROOT  =  os.path.join(BASE_DIR, "download") 
