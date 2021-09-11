@@ -11,15 +11,19 @@
       font-family: Helvetica;
       src: url(assets/fonts/helvetica/helveticaneue.ttf);
     }
-    @page title_template { margin: 5cm; }
-    @page regular_template { margin: 2cm; }
-    @page {
-      font-family: Arial, Helvetica, sans-serif;
-      size: letter portrait;    
+
+    @page title_template{
+      background-image: url('num_illus.jpg');
+      margin: 10cm 5cm 5cm;       
+      size: letter;  
+    }
+    @page regular_template {
+      margin: 2cm; 
+      size: letter;  
       @frame header_frame {           /* Static Frame */
         -pdf-frame-content: header_content;
         left: 50pt; width: 512pt; top: 50pt; height: 40pt;
-        align-content: center;
+        align-content: right;
       }
       @frame content_frame {          /* Content Frame */
         left: 50pt; width: 512pt; top: 90pt; height: 632pt;
@@ -29,12 +33,22 @@
         left: 50pt; width: 512pt; top: 772pt; height: 20pt;
       }
     }
+    table { -pdf-keep-with-next: true; }
+    p { margin: 0; -pdf-keep-with-next: true; }
+    p.separator { -pdf-keep-with-next: false; font-size: 6pt; }
     h1{
 		font-size: 16px;
 		color: blue;
 		margin-bottom: 4%;
 		text-align: center;
 	  }
+    .page-cover {
+      font-size: 36px;
+      margin-top: 4%;
+      margin-bottom: 4%;
+      color: blue;
+      text-align: center;
+    }
     .card {
       position: relative;
       display: -webkit-flex;
@@ -59,7 +73,7 @@
     .card-header {
       padding: 0.75rem 1.25rem;
       margin-bottom: 0;
-      background-color: #007bff;
+      background-color: #007bff;      
       border-bottom: 0 solid rgba(0, 0, 0, 0.125);
     }    
     .card-body {
@@ -68,6 +82,8 @@
       flex: 1 1 auto;
       min-height: 1px;
       padding: 1.25rem;
+      background-image: url('num_illus.jpg');
+
     }
     .card-title {
      margin-bottom: 0.75rem;
@@ -76,35 +92,91 @@
 
 </head>
 <body>
+  <!-- TITLE PAGE -->
+  <div class="page-cover" >
+    NHÂN SỐ HỌC ỨNG DỤNG
+    <img src='assets/images/num_illus.jpg' />
+  
+  </div>
+ 
+  <pdf:nextpage /> 
+  <pdf:nexttemplate name="regular_template" />     
+  <div id="header_content" align="right">        
+    <h1>NHÂN SỐ HỌC</h1> 
+    <hr />   
+  </div>
+  <div id="footer_content">        
+      page <pdf:pagenumber> of <pdf:pagecount>   
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h1>
+        <img src='assets/adminlte/dist/img/user2-160x160.jpg' />      
+        Thông tin về bạn
+      </h1>
+      </div>
+    </div>
+    <div class="card-body">
+      <span>Tên đầy đủ: <b>{{details.info.last_name}} {{details.info.first_name}} </b> <br/></span>
+      <span>Ngày sinh: <b>{{details.dob}} </b><br/></span>
+      <span>Ngày dự báo: <b>{{details.fortune_day}} </b></span>                         
+    </div>
+  </div> 
+
+  <pdf:nextpage /> 
+  
+  <div class="card">
+    <div class="card-header">      
+        <h1>CHỈ SỐ ĐƯỜNG ĐỜI</h1>                    
+        <p>
+          <h1 class="text-center">
+            {{details.info.life_path_number}}
+            <small class="lead"> {{details.lifepath.key_info}} </small>     
+          </h1> 
+        </p>                                                                                      
+    </div>
+    <div class="card-body">               
+      {{details.lifepath.meaning|safe }} 
+    </div>
+  </div>  
+
+  <pdf:nextpage /> 
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">
+        <h1> CHỈ SỐ SỨ MỆNH</h1>  
+        <h1 class="text-center">
+          {{details.info.destiny_number}} 
+        </h1>
+      </div>
+    </div>                          
+    <div class="card-body">               
+      {{details.destinypath.meaning|safe }} 
+    </div>
+  </div>
+
+  <pdf:nextpage /> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <div class="wrapper"> 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <div id="header_content">        
-        <h1>NHÂN SỐ HỌC</h1>    
-        <hr />  
-      </div>
-      <!-- /.content-header -->  
       <!-- Main content -->
       <div class="content">        
-          <div class="row">              
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>
-                    <img src='assets/adminlte/dist/img/user2-160x160.jpg'>
-                    <i class="fas fa-info-circle mr-1"></i>
-                    Thông tin về bạn
-                  </h5>           
-                </div>
-              </div>
-              <div class="card-body">
-                <span>Tên đầy đủ: <b>{{details.info.last_name}} {{details.info.first_name}} </b> <br/></span>
-                <span>Ngày sinh: <b>{{details.dob}} </b><br/></span>
-                <span>Ngày dự báo: <b>{{details.fortune_day}} </b></span>                         
-              </div>
-            </div>
-            
+           
           </div>
           <!-- /.row -->
           <div class="row">
@@ -127,9 +199,7 @@
             <!-- /.card -->          
           </div>
           <!-- /.row -->
-          <div class="row">
-            <!-- /.col-md-12 -->         
-            
+          <div class="row">            
             <div class="card">
               <div class="card-header">
                 <div class="card-title">
@@ -143,8 +213,7 @@
                 {{details.destinypath.meaning|safe }} 
               </div>
             </div>  
-            <!-- /.card -->
-            
+            <!-- /.card -->            
           </div>
           <!-- /.row -->
           <div class="row">
@@ -338,8 +407,7 @@
                       </th> 
                     </tr>
                     <tr> 
-                      <td>
-                        
+                      <td>                        
                         {{chall.meaning|safe }}
                       </td>
                     </tr>
@@ -367,7 +435,6 @@
               </div>
             </div>  
             <!-- /.card -->
-            </div>
           </div>
           <!-- /.row -->
           <div class="row">            
@@ -430,14 +497,7 @@
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <!-- Main Footer -->
-    <footer class="main-footer">      
-      <div id="footer_content">        
-        page <pdf:pagenumber> of <pdf:pagecount>   
-      </div>
-      <!-- Default to the left -->
-      <strong>Copyright &copy; 2020-2021 <a href="#">Nhân Số Học</a>.</strong> All rights reserved.
-    </footer>
+
   </div>
   <!-- ./wrapper -->
 </body>

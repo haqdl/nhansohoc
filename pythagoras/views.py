@@ -1,11 +1,7 @@
 import io
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
-from django.template import loader
+from django.http import HttpResponse
 from datetime import datetime
-from django import template
-from django.http import FileResponse
-from reportlab.pdfgen import canvas
 from numerology import Pythagorean
 from . import pdf_render 
 

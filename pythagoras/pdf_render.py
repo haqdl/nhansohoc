@@ -1,13 +1,11 @@
 
 import os
 from django.conf import settings
-from io import BytesIO, StringIO
-
+from io import StringIO
 from django.http import HttpResponse
-from django.template.loader import get_template, render_to_string
+from django.template.loader import get_template
 import xhtml2pdf.pisa as pisa
 from django.contrib.staticfiles import finders
-import pdfkit
 
 def link_callback(uri, rel):
             """
@@ -76,14 +74,3 @@ def render_pdf_view(path: str, params: dict):
     
     return HttpResponse(response.getvalue(), content_type='application/pdf')
 #     return response
-
-def pdfkit_render(path: str, params: dict):        
-    template = get_template(path)
-    html = template.render(params)
-    options = {'encoding': "UTF-8", "enable-local-file-access": None}
-    try:    
-        pdf = pdfkit.from_string(html, False, options=options)
-    
-        return HttpResponse(pdf, content_type='application/pdf')
-    except Exception:
-        return HttpResponse("Error Rendering PDF" + Exception.__traceback__ , status=400)
