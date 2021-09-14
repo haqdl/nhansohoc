@@ -5,15 +5,14 @@
   <meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NHÂN SỐ HỌC</title>  
-  <style type="text/css">
-    
+  <style type="text/css">    
     @font-face {
       font-family: Helvetica;
       src: url(assets/fonts/helvetica/helveticaneue.ttf);
     }
 
     @page title_template{
-      background-image: url('num_illus.jpg');
+      background-image: url('assets/images/num_illus.jpg');
       margin: 10cm 5cm 5cm;       
       size: letter;  
     }
@@ -26,11 +25,12 @@
         align-content: right;
       }
       @frame content_frame {          /* Content Frame */
+        -pdf-frame-content: main_content;
         left: 50pt; width: 512pt; top: 90pt; height: 632pt;
       }
       @frame footer_frame {           /* Another static Frame */
         -pdf-frame-content: footer_content;
-        left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        left: 50pt; width: 512pt; top: 772pt; height: 50pt;
       }
     }
     table { -pdf-keep-with-next: true; }
@@ -44,7 +44,7 @@
 	  }
     .page-cover {
       font-size: 36px;
-      margin-top: 4%;
+      margin-top: 100;
       margin-bottom: 4%;
       color: blue;
       text-align: center;
@@ -77,13 +77,12 @@
       border-bottom: 0 solid rgba(0, 0, 0, 0.125);
     }    
     .card-body {
+      font-size: 16px;
       -webkit-flex: 1 1 auto;
       -ms-flex: 1 1 auto;
       flex: 1 1 auto;
       min-height: 1px;
-      padding: 1.25rem;
-      background-image: url('num_illus.jpg');
-
+      padding: 1.25rem;     
     }
     .card-title {
      margin-bottom: 0.75rem;
@@ -93,48 +92,64 @@
 </head>
 <body>
   <!-- TITLE PAGE -->
-  <div class="page-cover" >
-    NHÂN SỐ HỌC ỨNG DỤNG
-    <img src='assets/images/num_illus.jpg' />
-  
+  <div>
+    <div class="page-cover">      
+      <img src="assets/images/cover_page.png" />  
+    </div>
   </div>
- 
+
+  <pdf:nexttemplate name="regular_template" /> 
   <pdf:nextpage /> 
-  <pdf:nexttemplate name="regular_template" />     
-  <div id="header_content" align="right">        
-    <h1>NHÂN SỐ HỌC</h1> 
-    <hr />   
+  <div id="header_content">        
+      <img src="assets/images/logo_2x.png">
   </div>
   <div id="footer_content">        
-      page <pdf:pagenumber> of <pdf:pagecount>   
+      <hr />
+      <img src="assets/images/logo_2x.png" height="15px"> - page <pdf:pagenumber>
   </div>
 
   <div class="card">
     <div class="card-header">
-      <h1>
-        <img src='assets/adminlte/dist/img/user2-160x160.jpg' />      
-        Thông tin về bạn
-      </h1>
-      </div>
+      <h1>        
+        <img src="assets/images/logo_2x.png" height="30px">
+      </h1>      
     </div>
     <div class="card-body">
-      <span>Tên đầy đủ: <b>{{details.info.last_name}} {{details.info.first_name}} </b> <br/></span>
-      <span>Ngày sinh: <b>{{details.dob}} </b><br/></span>
-      <span>Ngày dự báo: <b>{{details.fortune_day}} </b></span>                         
+      <div>
+        <span><b>Tên đầy đủ: </b> {{details.info.last_name}} {{details.info.first_name}} <br/></span>
+        <span>Ngày sinh: <b>{{details.dob}} </b><br/></span>
+        <span>Ngày dự báo: <b>{{details.fortune_day}} </b></span>                         
+      </div>
+    
+      <div>
+        Bạn {{details.info.last_name}} {{details.info.first_name}} thân mến, 
+        <br />
+        Cảm ơn bạn đã chọn TalentCenter.vn để được tư vấn định hướng học tập và phát triển nghề nghiệp dựa trên cơ sở một phần từ việc ứng dụng các công cụ trắc nghiệm cũng như các công trình nghiên cứu khoa học. Bài báo cáo này dựa trên việc ứng dụng Thần số học phương Tây được sáng tạo bởi triết gia và nhà toán học Hy Lạp Pythagoras cách đây hơn 2500 năm. Toàn bộ thông tin được dựa trên ngày sinh và tên gọi của mỗi cá nhân.
+        <br />
+        Khi bạn càng hiểu rõ cái gì thì bạn càng có thể chuẩn bị tốt hơn cho nó! Bài phân tích này giúp  bạn khám phá bản thân, và rồi bạn chuẩn bị “hành trang” cho những thách thức cũng như gia tăng sự tự tin để chinh phục các nấc thang trong suốt hành trình chinh phục đỉnh cao sự nghiệp cũng như trong cuộc sống.
+        <br />
+        Mỗi người trong chúng ta là một phiên bản mang màu sắc rất riêng và đặc biệt, tạo nên những giá trị độc đáo khác nhau. Các chỉ số thể hiện trong bài không nên dùng để đánh giá hay so sánh với bất kỳ ai.
+        <br />
+        Mang sứ mệnh phát triển thế hệ trẻ Việt, đội ngũ TalentCenter.vn tâm huyết đồng hành cùng bạn trong việc hiểu, phát triển tố chất sẵn có và định hướng nghề nghiệp một cách bài bản. Chúc bạn gặt hái những thành công như mong đợi và cuộc sống an vui.
+      </div>
+      <div>
+        Thân ái, <br />
+        Đội ngũ TalentCenter.vn
+      </div>
     </div>
   </div> 
 
   <pdf:nextpage /> 
-  
+
   <div class="card">
     <div class="card-header">      
-        <h1>CHỈ SỐ ĐƯỜNG ĐỜI</h1>                    
-        <p>
-          <h1 class="text-center">
-            {{details.info.life_path_number}}
-            <small class="lead"> {{details.lifepath.key_info}} </small>     
-          </h1> 
-        </p>                                                                                      
+        <h1>CHỈ SỐ ĐƯỜNG ĐỜI</h1>                   
+    </div>
+    <div>
+      <h1 class="text-center">
+        {{details.info.life_path_number}}
+        <small class="lead"> {{details.lifepath.key_info}} </small>     
+      </h1> 
     </div>
     <div class="card-body">               
       {{details.lifepath.meaning|safe }} 
@@ -142,14 +157,15 @@
   </div>  
 
   <pdf:nextpage /> 
+
   <div class="card">
     <div class="card-header">
-      <div class="card-title">
-        <h1> CHỈ SỐ SỨ MỆNH</h1>  
-        <h1 class="text-center">
-          {{details.info.destiny_number}} 
-        </h1>
-      </div>
+      <h1> CHỈ SỐ SỨ MỆNH</h1> 
+    </div>
+    <div>
+      <h1 class="text-center">
+        {{details.info.destiny_number}} 
+      </h1>
     </div>                          
     <div class="card-body">               
       {{details.destinypath.meaning|safe }} 
@@ -158,347 +174,128 @@
 
   <pdf:nextpage /> 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="wrapper"> 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- Main content -->
-      <div class="content">        
-           
-          </div>
-          <!-- /.row -->
-          <div class="row">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>CHỈ SỐ ĐƯỜNG ĐỜI</h1>                    
-                  <p>
-                    <h1 class="text-center">
-                      {{details.info.life_path_number}}
-                      <small class="lead"> {{details.lifepath.key_info}} </small>     
-                    </h1> 
-                  </p>                                              
-                </div>                                                   
-              </div>
-              <div class="card-body">               
-                {{details.lifepath.meaning|safe }} 
-              </div>
-            </div>  
-            <!-- /.card -->          
-          </div>
-          <!-- /.row -->
-          <div class="row">            
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1> CHỈ SỐ SỨ MỆNH</h1>  
-                  <h1 class="text-center">
-                    {{details.info.destiny_number}} 
-                  </h1>
-                </div>
-              </div>                          
-              <div class="card-body">               
-                {{details.destinypath.meaning|safe }} 
-              </div>
-            </div>  
-            <!-- /.card -->            
-          </div>
-          <!-- /.row -->
-          <div class="row">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>CHỈ SỐ LINH HỒN (chỉ số Động lực tiềm ẩn)</h1>
-                  <h1 class="text-center">
-                    {{details.info.hearth_desire_number}} 
-                  </h1>
-                </div>
-              </div>
-              <div class="card-body">               
-                {{details.hearthdesire.meaning|safe }} 
-              </div>
-            </div>  
-            <!-- /.card -->
-          </div>
-          <!-- /.row -->
-          <div class="row">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>CHỈ SỐ TÍNH CÁCH (chỉ số biểu đạt bên ngoài)</h1>                  
-                  <h1 class="text-center">
-                    {{details.info.personality_number}} 
-                  </h1>
-                </div>                  
-              </div>
-              <div class="card-body">               
-                {{details.personality.meaning|safe }} 
-              </div>
-            </div>  
-            <!-- /.card -->
-          </div>
-          <div class="row">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>CHỈ SỐ TRƯỞNG THÀNH (Thành tựu)</h1>                  
-                  <h1 class="text-center">
-                    {{details.info.power_number}} 
-                  </h1>
-                </div>                 
-              </div>
-              <div class="card-body">    
-                {{details.powerpath.meaning|safe }} 
-              </div>
-            </div>  
-            <!-- /.card -->
-          </div>
-          <!-- /.row -->
-          <div class="row">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>CHỈ SỐ THÁI ĐỘ</h1>                    
-                  <h1 class="text-center">
-                    {{details.info.attitude_number}} 
-                  </h1>
-                </div>                  
-              </div>
-              <div class="card-body">               
-                {{details.attitudepath.meaning|safe }} 
-              </div>
-            </div>  
-            <!-- /.card -->
-          </div>
-          <div class="row">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>CHỈ SỐ ĐAM MÊ</h1>                    
-                  <h1 class="text-center">
-                    {{details.info.passion_numbers}} 
-                  </h1>
-                </div>                  
-              </div>
-              <div class="card-body">    
-                <table>   
-                  {% for passion in details.passionpath %}
-                    <tr>
-                      <th align="left">
-                        CHỈ SỐ ĐAM MÊ {{passion.model_number}}
-                      </th>
-                    </tr>
-                    <tr>
-                      <td>
-                        {{passion.meaning|safe}}
-                      </td>
-                    </tr>
-                  {% endfor %}        
-                </table>
-              </div>
-            </div>  
-            <!-- /.card -->
-          
-          </div>
-          <!-- /.row -->
-          <div class="row">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>
-                    CHỈ SỐ RÈN LUYỆN
-                  </h1>  
-                  <h1 class="text-center">
-                    {{details.info.full_name_missing_numbers}} 
-                  </h1>
-                </div>                 
-              </div>
-              <div class="card-body">               
-                <table>   
-                  {% for miss in details.missingpath %}
-                    <tr>
-                      <th  align="left">
-                        CHỈ SỐ RÈN LUYỆN {{miss.model_number}}
-                      </th>
-                    </tr>
-                    <tr>
-                      <td>
-                        {{miss.meaning|safe }}
-                      </td>
-                    </tr>
-                  {% endfor %}        
-                </table>                
-              </div>
-            </div>  
-            <!-- /.card -->
-          </div>   
-          <div class="row">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>
-                    4 ĐỈNH CAO CUỘC ĐỜI
-                  </h1>  
-                  <h1 class="text-center">
-                    {{details.info.pyramid_numbers}} 
-                  </h1>
-                </div>                  
-              </div>
-              <div class="card-body">    
-                <table>   
-                  {% for pyr in details.pyramidpath %}
-                    <tr>
-                      <th align="left">
-                        ĐỈNH CAO  {{ forloop.counter }} - 
-                        {% if forloop.counter == 1 %}
-                          {{details.info.pyramid_ages.0}}
-                        {% elif forloop.counter == 2 %}
-                          {{details.info.pyramid_ages.1}}
-                        {% elif forloop.counter == 3 %}
-                          {{details.info.pyramid_ages.2}}  
-                        {% else %}                          
-                          {{details.info.pyramid_ages.3}}                          
-                        {% endif %}
-                        tuổi
-                      </th>
-                    </tr>
-                    <tr>
-                      <td>
-                        {{pyr.meaning|safe }}
-                      </td>
-                    </tr>
-                  {% endfor %}        
-                </table>                    
-              </div>
-            </div>  
-            <!-- /.card -->
-          </div>
-          <!-- /.row -->
-          <div class="row">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>
-                    CHỈ SỐ THÁCH THỨC
-                  </h5>  
-                  <h1 class="text-center">
-                    {{details.info.challenge_numbers}} 
-                  </h1>
-                </div>                  
-              </div>
-              <div class="card-body">  
-                <table>   
-                  {% for chall in details.challengepath %}
-                    <tr>
-                      <th align="left">
-                        THÁCH THỨC  {{ forloop.counter }}
-                      </th> 
-                    </tr>
-                    <tr> 
-                      <td>                        
-                        {{chall.meaning|safe }}
-                      </td>
-                    </tr>
-                  {% endfor %}        
-                </table>                
-              </div>
-            </div>  
-            <!-- /.card -->
-        
-          </div>                     
-          <div class="row">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>
-                    CHỈ SỐ HỌ HIỆN TẠI
-                  </h1>  
-                  <h1 class="text-center">
-                    {{details.info.legacy_number}} 
-                  </h1>
-                </div>                 
-              </div>
-              <div class="card-body">    
-                {{details.legacypath.meaning|safe }} 
-              </div>
-            </div>  
-            <!-- /.card -->
-          </div>
-          <!-- /.row -->
-          <div class="row">            
-            <div class="card card-primary">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>
-                    CHỈ SỐ TÊN HIỆN TẠI
-                  </h1>  
-                  <h1 class="text-center">
-                    {{details.info.active_number}} 
-                  </h1>
-                </div>                  
-              </div>
-              <div class="card-body">               
-                {{details.activepath.meaning|safe }} 
-              </div>
-            </div>  
-            <!-- /.card -->
-          </div>
-          <div class="row">
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>
-                    CHỈ SỐ NGÀY SINH
-                  </h1>  
-                  <h1 class="text-center">
-                    {{details.info.birthdate_day}} 
-                  </h1>
-                </div>                  
-              </div>
-              <div class="card-body">    
-                {{details.daypath.meaning|safe }} 
-              </div>
-            </div>  
-            <!-- /.card -->
-          </div>
-          <!-- /.row -->
-          <div class="row">            
-            <div class="card">
-              <div class="card-header">
-                <div class="card-title">
-                  <h1>
-                    CHỈ SỐ THÁNG CÁ NHÂN
-                  </h1>  
-                  <h1 class="text-center">
-                    {{details.info.birthdate_month_num}} 
-                  </h1>
-                </div>                 
-              </div>
-              <div class="card-body">               
-                {{details.monthpath.meaning|safe }} 
-              </div>
-            </div>  
-            <!-- /.card -->
-          </div>          
-        
-      </div>
-      <!-- /.content -->
+  <div class="card">
+    <div class="card-header">
+      <h1>CHỈ SỐ LINH HỒN (chỉ số Động lực tiềm ẩn)</h1>  
     </div>
-    <!-- /.content-wrapper -->
-
+    <div>
+      <h1 class="text-center">
+        {{details.info.hearth_desire_number}} 
+      </h1>
+    </div>                          
+    <div class="card-body">               
+      {{details.hearthdesire.meaning|safe }} 
+    </div>
   </div>
-  <!-- ./wrapper -->
+
+  <pdf:nextpage /> 
+
+  <div class="card">
+    <div class="card-header">
+      <h1>CHỈ SỐ TÍNH CÁCH (chỉ số biểu đạt bên ngoài)</h1> 
+    </div>
+    <div>
+      <h1 class="text-center">
+        {{details.info.personality_number}} 
+      </h1>
+    </div>
+    <div class="card-body">               
+      {{details.personality.meaning|safe }} 
+    </div>
+  </div>
+
+  <pdf:nextpage /> 
+
+  <div class="card">
+    <div class="card-header">
+      <h1>CHỈ SỐ TRƯỞNG THÀNH (Thành tựu)</h1>  
+    </div>
+    <div>
+      <h1 class="text-center">
+        {{details.info.power_number}} 
+      </h1>
+    </div>
+    <div class="card-body">               
+      {{details.powerpath.meaning|safe }} 
+    </div>
+  </div>
+
+  <pdf:nextpage /> 
+
+  <div class="card">
+    <div class="card-header">      
+      <h1>CHỈ SỐ THÁI ĐỘ</h1>  
+    </div>
+    <div>
+      <h1 class="text-center">
+        {{details.info.attitude_number}} 
+      </h1>
+    </div>
+    <div class="card-body">               
+      {{details.attitudepath.meaning|safe }} 
+    </div>
+  </div>
+
+  <pdf:nextpage /> 
+
+  <div class="card">
+    <div class="card-header">
+      <h1>CHỈ SỐ ĐAM MÊ</h1> 
+    </div> 
+    <div>
+      <h1 class="text-center">
+        {{details.info.passion_numbers}} 
+      </h1>     
+    </div>                          
+    <div class="card-body">               
+      <table>   
+        {% for passion in details.passionpath %}
+          <tr>
+            <th align="left">
+              CHỈ SỐ ĐAM MÊ {{passion.model_number}}
+            </th>
+          </tr>
+          <tr>
+            <td>
+              {{passion.meaning|safe}}
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td></td></tr>
+        {% endfor %}        
+      </table>
+    </div>
+  </div>
+
+  <pdf:nextpage /> 
+
+  <div class="card">
+    <div class="card-header">
+      <h1>CHỈ SỐ RÈN LUYỆN</h1>  
+    </div>
+    <div>
+      <h1 class="text-center">
+        {{details.info.full_name_missing_numbers}} 
+      </h1>     
+    </div>                          
+    <div class="card-body">               
+      <table>   
+        {% for miss in details.missingpath %}
+          <tr>
+            <th  align="left">
+              CHỈ SỐ RÈN LUYỆN {{miss.model_number}}
+            </th>
+          </tr>
+          <tr>
+            <td>
+              {{miss.meaning|safe }}
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td></td></tr>  
+        {% endfor %}        
+        </table>   
+    </div>
+  </div>
 </body>
 </html>  

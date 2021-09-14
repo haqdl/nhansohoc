@@ -61,7 +61,7 @@ def build_numerology_details(first_name: str, last_name: str, dob: str) -> dict:
         first_name=first_name,
         last_name=last_name,
         birthdate=dob,
-        verbose=True
+        verbose=False
     )
     n_detail_dict['info'] = numerology_results.key_figures
     n_detail_dict['dob'] = datetime.strptime(dob, '%Y-%m-%d').strftime('%d-%m-%Y')
@@ -210,4 +210,5 @@ def report(request):
     params = {
         'request': request, 'details': details_dict
     }
+
     return pdf_render.render_pdf_view('pythagoras/report.html', params)

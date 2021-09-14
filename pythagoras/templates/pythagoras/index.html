@@ -138,7 +138,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
-        <img src="{% static 'adminlte/dist/img/AdminLTELogo.png' %}" alt="Nhan So Hoc" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{% static 'images/logo_2x.png' %}" height="20px" alt="Nhan So Hoc" class="brand-image elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">NHÂN SỐ HỌC</span>
       </a>
   
@@ -272,9 +272,9 @@
                   <span>
                     <form action="/report/" method="post">
                       {% csrf_token %}
-                      <input type="hidden" name="first_name" value={{details.info.first_name}} >
-                      <input type="hidden" name="last_name" value={{details.info.last_name}} >
-                      <input type="hidden" name="date_of_birth" value={{details.dob}} >
+                      <input type="hidden" name="first_name" value="{{details.info.first_name}}" >
+                      <input type="hidden" name="last_name" value="{{details.info.last_name}}" >
+                      <input type="hidden" name="date_of_birth" value="{{details.dob}}" >
                       <input class="btn btn-primary btn-sm" type="submit" value="Download PDF Report">
                     </form>
                   </span>             
@@ -631,63 +631,7 @@
               <!-- /.card -->
             </div>
             <!-- /.col-md-6 -->
-          </div>                     
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="card card-primary">
-                <div class="card-header">
-                  <div class="card-title">
-                    <h5 class="m-0">
-                      <i class="fas fa-bookmark mr-1"></i>
-                      CHỈ SỐ HỌ HIỆN TẠI
-                    </h5>  
-                    <h1 class="text-center">
-                      {{details.info.legacy_number}} 
-                    </h1>
-                  </div>
-                  <!-- card tools -->
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                  </div>
-                  <!-- /.card-tools -->
-                </div>
-                <div class="card-body">    
-                  {{details.legacypath.meaning|safe }} 
-                </div>
-              </div>  
-              <!-- /.card -->
-            </div>
-            <!-- /.col-md-6 -->         
-            <div class="col-lg-6">
-              <div class="card card-primary">
-                <div class="card-header">
-                  <div class="card-title">
-                    <h5 class="m-0">
-                      <i class="fas fa-bookmark-o mr-1"></i>
-                      CHỈ SỐ TÊN HIỆN TẠI
-                    </h5>  
-                    <h1 class="text-center">
-                      {{details.info.active_number}} 
-                    </h1>
-                  </div>
-                  <!-- card tools -->
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                  </div>
-                  <!-- /.card-tools -->
-                </div>
-                <div class="card-body">               
-                  {{details.activepath.meaning|safe }} 
-                </div>
-              </div>  
-              <!-- /.card -->
-            </div>
-            <!-- /.col-md-6 -->
-          </div>
+          </div>                    
           <div class="row">
             <div class="col-lg-6">
               <div class="card card-primary">
@@ -777,7 +721,64 @@
               <!-- /.card -->
             </div>
             <!-- /.col-md-6 -->
-          </div>                  
+          </div>    
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bookmark mr-1"></i>
+                      CHỈ SỐ HỌ HIỆN TẠI
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.legacy_number}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
+                </div>
+                <div class="card-body">    
+                  {{details.legacypath.meaning|safe }} 
+                </div>
+              </div>  
+              <!-- /.card -->
+            </div>
+            <!-- /.col-md-6 -->         
+            <div class="col-lg-6">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <div class="card-title">
+                    <h5 class="m-0">
+                      <i class="fas fa-bookmark-o mr-1"></i>
+                      CHỈ SỐ TÊN HIỆN TẠI
+                    </h5>  
+                    <h1 class="text-center">
+                      {{details.info.active_number}} 
+                    </h1>
+                  </div>
+                  <!-- card tools -->
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                  <!-- /.card-tools -->
+                </div>
+                <div class="card-body">               
+                  {{details.activepath.meaning|safe }} 
+                </div>
+              </div>  
+              <!-- /.card -->
+            </div>
+            <!-- /.col-md-6 -->
+          </div>                        
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content -->
@@ -801,7 +802,7 @@
         Anything you want
       </div>
       <!-- Default to the left -->
-      <strong>Copyright &copy; 2020-2021 <a href="#">Nhân Số Học</a>.</strong> All rights reserved.
+      <strong>Copyright &copy; 2021  <a href="#"><img src="{% static 'images/logo_2x.png' %}" height="10px" alt="Nhan So Hoc" class="brand-image elevation-3" style="opacity: .8"></a>.</strong> All rights reserved.
     </footer>
   </div>
   <!-- ./wrapper -->
