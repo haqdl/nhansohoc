@@ -1,0 +1,7 @@
+# assets
+.vscode/
+assets/adminlte/
+static/
+# temp files
+*.pyc
+*.swp

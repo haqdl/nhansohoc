@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>  
-  <meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NHÂN SỐ HỌC</title>  
   <style type="text/css">    
@@ -11,12 +11,10 @@
       src: url(assets/fonts/helvetica/helveticaneue.ttf);
     }
 
-    @page title_template{
-      background-image: url('assets/images/num_illus.jpg');
-      margin: 10cm 5cm 5cm;       
-      size: letter;  
-    }
+
     @page regular_template {
+      background-image: url(assets/images/num_illus.jpg);
+      background-color: #007bff;
       margin: 2cm; 
       size: letter;  
       @frame header_frame {           /* Static Frame */
@@ -98,14 +96,14 @@
     </div>
   </div>
 
-  <pdf:nexttemplate name="regular_template" /> 
+  
   <pdf:nextpage /> 
   <div id="header_content">        
       <img src="assets/images/logo_2x.png">
   </div>
   <div id="footer_content">        
       <hr />
-      <img src="assets/images/logo_2x.png" height="15px"> - page <pdf:pagenumber>
+      <img src="assets/images/logo_2x.png" height="15px"> 
   </div>
 
   <div class="card">
@@ -266,7 +264,7 @@
       </table>
     </div>
   </div>
-
+  
   <pdf:nextpage /> 
 
   <div class="card">

@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor'
+    'ckeditor',
+    'wkhtmltopdf'
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'nhansohoc.wsgi.application'
 
+WKHTMLTOPDF_CMD_OPTIONS = {
+'quiet': True,
+}
+
+if os.name != 'nt':
+    WKHTMLTOPDF_CMD = '/usr/bin/wkhtmltopdf'
+else:
+    WKHTMLTOPDF_DEBUG = True
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

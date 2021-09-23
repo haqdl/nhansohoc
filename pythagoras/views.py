@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime
 from numerology import Pythagorean
-from . import pdf_render 
+from . import file_render 
 
 from .models import (
     LifePath,
@@ -211,4 +211,4 @@ def report(request):
         'request': request, 'details': details_dict
     }
 
-    return pdf_render.render_pdf_view('pythagoras/report.html', params)
+    return file_render.render('pythagoras/report.html', params)
