@@ -277,7 +277,16 @@
                       <input type="hidden" name="date_of_birth" value="{{details.dob}}" >
                       <input class="btn btn-primary btn-sm" type="submit" value="Download PDF Report">
                     </form>
-                  </span>             
+                  </span>   
+                  <span>
+                    <form action="/pptx/" method="post">
+                      {% csrf_token %}
+                      <input type="hidden" name="first_name" value="{{details.info.first_name}}" >
+                      <input type="hidden" name="last_name" value="{{details.info.last_name}}" >
+                      <input type="hidden" name="date_of_birth" value="{{details.dob}}" >
+                      <input class="btn btn-primary btn-sm" type="submit" value="Download Powerpoint">
+                    </form>
+                  </span>          
                 </div>
               </div>
             </div>

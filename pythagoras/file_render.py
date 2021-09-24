@@ -1,4 +1,5 @@
 
+from nhansohoc.settings import TEMPLATES
 import os
 from django.conf import settings
 from io import StringIO, BytesIO
@@ -6,6 +7,9 @@ from django.http import HttpResponse
 from django.template.loader import get_template, render_to_string
 import xhtml2pdf.pisa as pisa
 from django.contrib.staticfiles import finders
+
+from pptx import Presentation
+
 from pprint import pprint
 def link_callback(uri, rel):
         """
@@ -110,3 +114,23 @@ def render_pdfkit(path: str, params: dict):
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = "'attachment; filename='report.pdf'"
     return response      
+
+def render_pptx(params:dict):
+    file_path = settings.TEMPLATES[0]["DIRS"][0]
+    prs = Presentation(file_path / "report.pptx")
+    slide_layout_1 = prs.slide_layouts[1]
+    slide = prs.slides.add_slide(slide_layout_1)
+    title = slide.shapes.title
+    subtitle = slide.placeholders[0]
+    title.text = 'THIS IS TITLE'
+    subtitle.text = "THIS IS Subtitle"
+
+    response = HttpResponse(content_type='application/vnd.ms-powerpoint')
+    response['Content-Disposition'] = 'attachment; filename="sample.pptx"'
+    source_stream = BytesIO()
+    prs.save(source_stream)
+    ppt = source_stream.getvalue()
+    source_stream.close()
+    response.write(ppt)
+
+    return response

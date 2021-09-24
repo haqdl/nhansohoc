@@ -38,8 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor',
-    'wkhtmltopdf'
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +56,7 @@ ROOT_URLCONF = 'nhansohoc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'pythagoras/templates/pythagoras/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,14 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'nhansohoc.wsgi.application'
 
-WKHTMLTOPDF_CMD_OPTIONS = {
-'quiet': True,
-}
-
-if os.name != 'nt':
-    WKHTMLTOPDF_CMD = '/usr/bin/wkhtmltopdf'
-else:
-    WKHTMLTOPDF_DEBUG = True
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

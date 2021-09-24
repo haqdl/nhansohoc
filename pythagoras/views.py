@@ -212,3 +212,21 @@ def report(request):
     }
 
     return file_render.render('pythagoras/report.html', params)
+
+def pptx(request):
+    details_dict = {}
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        dob = request.POST['date_of_birth']
+        birthday = datetime.strptime(dob, '%d-%m-%Y') 
+        details_dict = build_numerology_details(
+            first_name=first_name, 
+            last_name=last_name, 
+            dob=birthday.strftime('%Y-%m-%d')
+        )
+    params = {
+        'request': request, 'details': details_dict
+    }
+
+    return file_render.render_pptx(params=params)
