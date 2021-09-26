@@ -8,7 +8,10 @@ from django.template.loader import get_template, render_to_string
 import xhtml2pdf.pisa as pisa
 from django.contrib.staticfiles import finders
 
-from pptx import Presentation
+import pptx
+from bs4 import BeautifulSoup
+
+
 
 from pprint import pprint
 def link_callback(uri, rel):
@@ -116,14 +119,29 @@ def render_pdfkit(path: str, params: dict):
     return response      
 
 def render_pptx(params:dict):
+    # load up pptx template
     file_path = settings.TEMPLATES[0]["DIRS"][0]
-    prs = Presentation(file_path / "report.pptx")
-    slide_layout_1 = prs.slide_layouts[1]
-    slide = prs.slides.add_slide(slide_layout_1)
-    title = slide.shapes.title
-    subtitle = slide.placeholders[0]
-    title.text = 'THIS IS TITLE'
-    subtitle.text = "THIS IS Subtitle"
+    prs = pptx.Presentation(file_path / "report.pptx")
+    slide_layouts = prs.slide_layouts
+    # get details
+    details = params.get("details", {})
+    # life path
+    life_path_layout = slide_layouts[1]
+
+    life_path_slide = prs.slides.add_slide(life_path_layout)
+    life_path_text_content = life_path_slide.shapes[0]
+    lifepath_meaning = details['lifepath']['meaning']
+    soup = BeautifulSoup(lifepath_meaning, "html5lib")
+    life_path_text_content.text = soup.get_text()
+
+    # destiny
+    destiny_layout = slide_layouts[2]
+
+    destiny_slide = prs.slides.add_slide(destiny_layout)
+    destiny_text_content = destiny_slide.shapes[0]
+    destiny_meaning = details['destinypath']['meaning']
+    soup = BeautifulSoup(destiny_meaning, "html5lib")
+    destiny_text_content.text = soup.get_text()
 
     response = HttpResponse(content_type='application/vnd.ms-powerpoint')
     response['Content-Disposition'] = 'attachment; filename="sample.pptx"'
