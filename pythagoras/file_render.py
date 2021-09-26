@@ -9,6 +9,7 @@ import xhtml2pdf.pisa as pisa
 from django.contrib.staticfiles import finders
 
 import pptx
+from pptx.enum.shapes import MSO_SHAPE_TYPE
 from bs4 import BeautifulSoup
 
 
@@ -118,30 +119,123 @@ def render_pdfkit(path: str, params: dict):
     response['Content-Disposition'] = "'attachment; filename='report.pdf'"
     return response      
 
+def replace_text(replacements, shapes):
+    """Takes dict of {match: replacement, ... } and replaces all matches.
+    Currently not implemented for charts or graphics.
+    """
+    for shape in shapes:
+        for match, replacement in replacements.items():
+            if shape.has_text_frame:
+                if (shape.text.find(match)) != -1:
+                    text_frame = shape.text_frame
+                    for paragraph in text_frame.paragraphs:
+                        whole_text = "".join(run.text for run in paragraph.runs)
+                        whole_text = whole_text.replace(str(match), str(replacement))
+                        for idx, run in enumerate(paragraph.runs):
+                            if idx != 0:
+                                p = paragraph._p
+                                p.remove(run._r)
+                        if(not(not paragraph.runs)):
+                            paragraph.runs[0].text = whole_text
+
 def render_pptx(params:dict):
     # load up pptx template
     file_path = settings.TEMPLATES[0]["DIRS"][0]
-    prs = pptx.Presentation(file_path / "report.pptx")
+    prs = pptx.Presentation(file_path / "template_1.pptx")
     slide_layouts = prs.slide_layouts
+    slide_list = prs.slides
     # get details
     details = params.get("details", {})
     # life path
-    life_path_layout = slide_layouts[1]
-
-    life_path_slide = prs.slides.add_slide(life_path_layout)
-    life_path_text_content = life_path_slide.shapes[0]
     lifepath_meaning = details['lifepath']['meaning']
-    soup = BeautifulSoup(lifepath_meaning, "html5lib")
-    life_path_text_content.text = soup.get_text()
-
-    # destiny
-    destiny_layout = slide_layouts[2]
-
-    destiny_slide = prs.slides.add_slide(destiny_layout)
-    destiny_text_content = destiny_slide.shapes[0]
+    r_lifepath_meaning = BeautifulSoup(lifepath_meaning, "html5lib").get_text()
     destiny_meaning = details['destinypath']['meaning']
-    soup = BeautifulSoup(destiny_meaning, "html5lib")
-    destiny_text_content.text = soup.get_text()
+    r_destiny_meaning = BeautifulSoup(destiny_meaning, "html5lib").get_text()
+    power_meaning = details['destinypath']['meaning']
+    r_power_meaning = BeautifulSoup(power_meaning, "html5lib").get_text()
+    hearth_desire_meaning = details['hearthdesire']['meaning']
+    r_hearth_desire_meaning = BeautifulSoup(hearth_desire_meaning, "html5lib").get_text()
+    personality_meaning = details['personality']['meaning']
+    r_personality_meaning = BeautifulSoup(personality_meaning, "html5lib").get_text()
+    attitude_meaning = details['attitudepath']['meaning']
+    r_attitude_meaning = BeautifulSoup(attitude_meaning, "html5lib").get_text()
+    daypath_meaning = details['daypath']['meaning']
+    r_daypath_meaning = BeautifulSoup(daypath_meaning, "html5lib").get_text()
+
+    replaces = {
+        '{{fullname}}': details['info']['last_name'] + ' ' + details['info']['first_name'],
+        '{{birthday}}': str(details['dob']),
+        '{{life_path_meaning}}': r_lifepath_meaning,
+        '{{lp_num}}': str(details['info']['life_path_number']),
+        '{{lp_strong}}': 'add me',
+        '{{lp_challenge}}': 'add me',
+        '{{lp_improve}}': 'add me',
+        '{{lp_environment}}': 'add me',
+        '{{dp_num}}': str(details['info']['destiny_number']),
+        '{{destiny_meaning}}': r_destiny_meaning,
+        '{{pw_num}}': str(details['info']['power_number']),
+        '{{power_meaning}}': r_power_meaning,
+        '{{hd_num}}': str(details['info']['hearth_desire_number']),
+        '{{hearth_desire_meaning}}': r_hearth_desire_meaning,
+        '{{pe_num}}': str(details['info']['personality_number']),
+        '{{personality_meaning}}': r_personality_meaning,
+        '{{att_num}}': str(details['info']['attitude_number']),
+        '{{attitude_meaning}}': r_attitude_meaning,
+        '{{bd_num}}': str(details['info']['birthdate_day']),
+        '{{birthdate_day_meaning}}': r_daypath_meaning,
+        '{{miss_num}}': str(details['info']['full_name_missing_numbers']),
+        '{{miss_num_1}}': '',
+        '{{miss_num_2}}': '',
+        '{{miss_num_3}}': '',
+        '{{miss_num_4}}': '',
+        '{{miss_num_1_meaning}}': '',
+        '{{miss_num_2_meaning}}': '',
+        '{{miss_num_3_meaning}}': '',
+        '{{miss_num_4_meaning}}': '',
+    }
+
+    # missing path 
+
+    missing_path = details['missingpath']
+    for idx, miss in enumerate(missing_path):
+        miss_num_key = '{{miss_num_' + str(idx) + '}}'        
+        miss_num_meaning_key = '{{miss_num_' + str(idx) + '_meaning}}'
+        miss_num_meaning =  BeautifulSoup(miss['meaning'], "html5lib").get_text()
+        replaces[miss_num_key] = miss['model_number']
+        replaces[miss_num_meaning_key] = miss_num_meaning
+
+    # pyramyd
+    pyramid_path = details['pyramidpath']
+    pyramid_ages = details['info']['pyramid_ages']
+    pyramid_numbers = details['info']['pyramid_numbers']
+    for idx, pyr in enumerate(pyramid_path):
+        pyr_num_key = '{{py_num_' + str(idx) + '}}'
+        pyr_age_key = '{{py_age_' + str(idx) + '}}'
+        pyr_meaning_key = '{{py_' + str(idx) + '_meaning}}'
+        pyr_meaning = BeautifulSoup(pyr['meaning'], "html5lib").get_text()
+
+        replaces[pyr_num_key] = str(pyramid_numbers[idx])
+        replaces[pyr_age_key] = str(pyramid_ages[idx])
+        replaces[pyr_meaning_key] = pyr_meaning
+
+    # challenges
+    challenge_path = details['pyramidpath']
+    challenge_numbers = details['info']['pyramid_numbers']
+    for idx, chall in enumerate(challenge_path):
+        cll_num_key = '{{cll_num_' + str(idx) + '}}'        
+        cll_meaning_key = '{{challenge_' + str(idx) + '_meaning}}'
+        cll_meaning = BeautifulSoup(chall['meaning'], "html5lib").get_text()
+
+        replaces[cll_num_key] = str(challenge_numbers[idx])
+        replaces[cll_meaning_key] = cll_meaning
+
+
+    shapes = []
+    for slide in slide_list:
+        for shape in slide.shapes:
+            shapes.append(shape)                
+    replace_text(replaces, shapes)
+                    
 
     response = HttpResponse(content_type='application/vnd.ms-powerpoint')
     response['Content-Disposition'] = 'attachment; filename="sample.pptx"'
