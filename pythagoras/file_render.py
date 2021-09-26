@@ -123,9 +123,10 @@ def replace_text(replacements, shapes):
     """Takes dict of {match: replacement, ... } and replaces all matches.
     Currently not implemented for charts or graphics.
     """
-    for shape in shapes:
-        for match, replacement in replacements.items():
-            if shape.has_text_frame:
+    for shape in shapes:        
+        if shape.has_text_frame and len(shape.text) > 0:
+            txt = shape.text
+            for match, replacement in replacements.items():
                 if (shape.text.find(match)) != -1:
                     text_frame = shape.text_frame
                     for paragraph in text_frame.paragraphs:
@@ -198,8 +199,8 @@ def render_pptx(params:dict):
 
     missing_path = details['missingpath']
     for idx, miss in enumerate(missing_path):
-        miss_num_key = '{{miss_num_' + str(idx) + '}}'        
-        miss_num_meaning_key = '{{miss_num_' + str(idx) + '_meaning}}'
+        miss_num_key = '{{miss_num_' + str(idx+1) + '}}'        
+        miss_num_meaning_key = '{{miss_num_' + str(idx+1) + '_meaning}}'
         miss_num_meaning =  BeautifulSoup(miss['meaning'], "html5lib").get_text()
         replaces[miss_num_key] = miss['model_number']
         replaces[miss_num_meaning_key] = miss_num_meaning
@@ -209,9 +210,9 @@ def render_pptx(params:dict):
     pyramid_ages = details['info']['pyramid_ages']
     pyramid_numbers = details['info']['pyramid_numbers']
     for idx, pyr in enumerate(pyramid_path):
-        pyr_num_key = '{{py_num_' + str(idx) + '}}'
-        pyr_age_key = '{{py_age_' + str(idx) + '}}'
-        pyr_meaning_key = '{{py_' + str(idx) + '_meaning}}'
+        pyr_num_key = '{{py_num_' + str(idx+1) + '}}'
+        pyr_age_key = '{{py_age_' + str(idx+1) + '}}'
+        pyr_meaning_key = '{{py_' + str(idx+1) + '_meaning}}'
         pyr_meaning = BeautifulSoup(pyr['meaning'], "html5lib").get_text()
 
         replaces[pyr_num_key] = str(pyramid_numbers[idx])
@@ -222,8 +223,8 @@ def render_pptx(params:dict):
     challenge_path = details['pyramidpath']
     challenge_numbers = details['info']['pyramid_numbers']
     for idx, chall in enumerate(challenge_path):
-        cll_num_key = '{{cll_num_' + str(idx) + '}}'        
-        cll_meaning_key = '{{challenge_' + str(idx) + '_meaning}}'
+        cll_num_key = '{{cll_num_' + str(idx+1) + '}}'        
+        cll_meaning_key = '{{challenge_' + str(idx+1) + '_meaning}}'
         cll_meaning = BeautifulSoup(chall['meaning'], "html5lib").get_text()
 
         replaces[cll_num_key] = str(challenge_numbers[idx])
