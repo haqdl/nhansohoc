@@ -9,7 +9,6 @@ import xhtml2pdf.pisa as pisa
 from django.contrib.staticfiles import finders
 
 import pptx
-from pptx.enum.shapes import MSO_SHAPE_TYPE
 from bs4 import BeautifulSoup
 
 
@@ -138,6 +137,7 @@ def replace_text(replacements, shapes):
                                 p.remove(run._r)
                         if(not(not paragraph.runs)):
                             paragraph.runs[0].text = whole_text
+            txt_dest = shape.text
 
 def render_pptx(params:dict):
     # load up pptx template
@@ -220,8 +220,8 @@ def render_pptx(params:dict):
         replaces[pyr_meaning_key] = pyr_meaning
 
     # challenges
-    challenge_path = details['pyramidpath']
-    challenge_numbers = details['info']['pyramid_numbers']
+    challenge_path = details['challengepath']
+    challenge_numbers = details['info']['challenge_numbers']
     for idx, chall in enumerate(challenge_path):
         cll_num_key = '{{cll_num_' + str(idx+1) + '}}'        
         cll_meaning_key = '{{challenge_' + str(idx+1) + '_meaning}}'
@@ -239,7 +239,7 @@ def render_pptx(params:dict):
                     
 
     response = HttpResponse(content_type='application/vnd.ms-powerpoint')
-    response['Content-Disposition'] = 'attachment; filename="sample.pptx"'
+    response['Content-Disposition'] = 'attachment; filename="nhansohoc.pptx"'
     source_stream = BytesIO()
     prs.save(source_stream)
     ppt = source_stream.getvalue()
