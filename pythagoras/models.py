@@ -25,6 +25,11 @@ class MeaningModel(models.Model):
         abstract = True
 
 class LifePath(MeaningModel):   
+    lp_strong = RichTextField(verbose_name="Strong Points", null=True, default='')
+    lp_challenge = RichTextField(verbose_name="Challenge", null=True, default='')
+    lp_improve = RichTextField(verbose_name="Improvements", null=True, default='')
+    lp_environment = RichTextField(verbose_name="Environments", null=True, default='')
+
     class Meta:    
         verbose_name = 'SỐ ĐƯỜNG ĐỜI'
         verbose_name_plural = 'CHỈ SỐ ĐƯỜNG ĐỜI'

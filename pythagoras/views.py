@@ -33,7 +33,7 @@ def get_number_details(model_class, model_number: int) -> dict:
     model_path = model_class.objects.filter(
             model_number=model_number
         )
-    res =  model_path[0].to_dict() if model_path else model_class().to_dict()
+    res =  model_path.values()[0] if model_path else model_class().to_dict()
     return res
 
 
