@@ -148,6 +148,7 @@ def render_pptx(params:dict):
     # get details
     details = params.get("details", {})
     # life path
+    lifepath = details['lifepath']
     lifepath_meaning = details['lifepath']['meaning']
     r_lifepath_meaning = BeautifulSoup(lifepath_meaning, "html5lib").get_text()
     destiny_meaning = details['destinypath']['meaning']
@@ -168,10 +169,10 @@ def render_pptx(params:dict):
         '{{birthday}}': str(details['dob']),
         '{{life_path_meaning}}': r_lifepath_meaning,
         '{{lp_num}}': str(details['info']['life_path_number']),
-        '{{lp_strong}}': 'add me',
-        '{{lp_challenge}}': 'add me',
-        '{{lp_improve}}': 'add me',
-        '{{lp_environment}}': 'add me',
+        '{{lp_strong}}': BeautifulSoup(lifepath['lp_strong'], "html5lib").get_text(),
+        '{{lp_challenge}}': BeautifulSoup(lifepath['lp_challenge'], "html5lib").get_text(),
+        '{{lp_improve}}': BeautifulSoup(lifepath['lp_improve'], "html5lib").get_text(),
+        '{{lp_environment}}': BeautifulSoup(lifepath['lp_environment'], "html5lib").get_text(),
         '{{dp_num}}': str(details['info']['destiny_number']),
         '{{destiny_meaning}}': r_destiny_meaning,
         '{{pw_num}}': str(details['info']['power_number']),

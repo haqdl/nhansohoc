@@ -320,6 +320,24 @@
                 </div>
                 <div class="card-body">               
                   {{details.lifepath.meaning|safe }} 
+                  <table class="table table-bordered">                                             
+                      <tr> 
+                        <td>                          
+                          {{details.lifepath.lp_strong|safe }} 
+                        </td>
+                        <td>                          
+                          {{details.lifepath.lp_challenge|safe }} 
+                        </td>
+                      </tr>
+                      <tr> 
+                      <td>                          
+                        {{details.lifepath.lp_improve|safe }} 
+                      </td>
+                      <td>                          
+                        {{details.lifepath.lp_environment|safe }} 
+                      </td>
+                    </tr>                      
+                 </table>
                 </div>
               </div>  
               <!-- /.card -->
