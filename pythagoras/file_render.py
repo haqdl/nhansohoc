@@ -142,8 +142,7 @@ def replace_text(replacements, shapes):
 def render_pptx(params:dict):
     # load up pptx template
     file_path = settings.TEMPLATES[0]["DIRS"][0]
-    prs = pptx.Presentation(file_path / "template_1.pptx")
-    slide_layouts = prs.slide_layouts
+    prs = pptx.Presentation(file_path / "template_2.pptx")
     slide_list = prs.slides
     # get details
     details = params.get("details", {})
@@ -163,9 +162,13 @@ def render_pptx(params:dict):
     r_attitude_meaning = BeautifulSoup(attitude_meaning, "html5lib").get_text()
     daypath_meaning = details['daypath']['meaning']
     r_daypath_meaning = BeautifulSoup(daypath_meaning, "html5lib").get_text()
+    yearpath_meaning = details['yearpath']['meaning']
+    r_yearpath_meaning = BeautifulSoup(yearpath_meaning, "html5lib").get_text()
 
+    last_name = details['info']['last_name'] 
+    first_name = details['info']['first_name']
     replaces = {
-        '{{fullname}}': details['info']['last_name'] + ' ' + details['info']['first_name'],
+        '{{fullname}}': last_name + ' ' + first_name,
         '{{birthday}}': str(details['dob']),
         '{{life_path_meaning}}': r_lifepath_meaning,
         '{{lp_num}}': str(details['info']['life_path_number']),
@@ -185,6 +188,8 @@ def render_pptx(params:dict):
         '{{attitude_meaning}}': r_attitude_meaning,
         '{{bd_num}}': str(details['info']['birthdate_day']),
         '{{birthdate_day_meaning}}': r_daypath_meaning,
+        '{{bd_yr_num}}': str(details['info']['birthdate_day']),
+        '{{birthdate_year_meaning}}': r_yearpath_meaning,
         '{{miss_num}}': str(details['info']['full_name_missing_numbers']),
         '{{miss_num_1}}': '',
         '{{miss_num_2}}': '',
@@ -240,7 +245,7 @@ def render_pptx(params:dict):
                     
 
     response = HttpResponse(content_type='application/vnd.ms-powerpoint')
-    response['Content-Disposition'] = 'attachment; filename="nhansohoc.pptx"'
+    response['Content-Disposition'] = f'attachment; filename=report_{last_name}_{first_name}.pptx'
     source_stream = BytesIO()
     prs.save(source_stream)
     ppt = source_stream.getvalue()
