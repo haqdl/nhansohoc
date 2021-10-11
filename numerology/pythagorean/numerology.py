@@ -1,6 +1,7 @@
 import gettext
 import logging
 import math
+import datetime
 from collections import Counter
 from typing import Dict, Optional, Tuple
 
@@ -263,6 +264,10 @@ class Numerology:
             self._key_figures["challenge_numbers"] = self.challenge_numbers
             self._key_figures["pyramid_numbers"] = self.pyramid_numbers
             self._key_figures["pyramid_ages"] = self.pyramid_ages 
+            self._key_figures["fortune_curr_year_number"] = self.fortune_curr_year_number
+            self._key_figures["fortune_next_1_year_number"] = self.fortune_next_1_year_number
+            self._key_figures["fortune_next_2_year_number"] = self.fortune_next_2_year_number 
+            self._key_figures["fortune_next_3_year_number"] = self.fortune_next_3_year_number 
 
 
     # PROPERTIES
@@ -617,6 +622,58 @@ class Numerology:
 
 
         return age_1, age_2, age_3, age_4  
+
+
+    @property
+    def fortune_curr_year_number(self) -> int:
+        """Returns the numerology sum of the current year birthday."""
+        todays_date = datetime.date.today()
+        year_sum = self.get_numerology_sum(
+            fct.int_to_tuple(todays_date.year), master_number=True
+        )
+        return self.get_numerology_sum(
+            (self.birthdate_day_num, self.birthdate_month_num, year_sum), 
+            master_number=False
+        )
+
+
+    @property
+    def fortune_next_1_year_number(self) -> int:
+        """Returns the numerology sum of the next year birthday."""
+        todays_date = datetime.date.today()
+        year_sum = self.get_numerology_sum(
+            fct.int_to_tuple(todays_date.year + 1), master_number=True
+        )
+        return self.get_numerology_sum(
+            (self.birthdate_day_num, self.birthdate_month_num, year_sum), 
+            master_number=False
+        )
+
+    @property
+    def fortune_next_2_year_number(self) -> int:
+        """Returns the numerology sum of the next 2 years birthday."""
+        todays_date = datetime.date.today()
+        year_sum = self.get_numerology_sum(
+            fct.int_to_tuple(todays_date.year + 2), master_number=True
+        )
+        return self.get_numerology_sum(
+            (self.birthdate_day_num, self.birthdate_month_num, year_sum), 
+            master_number=False
+        )
+
+
+    @property
+    def fortune_next_3_year_number(self) -> int:
+        """Returns the numerology sum of the next 3 years birthday."""
+        todays_date = datetime.date.today()
+        year_sum = self.get_numerology_sum(
+            fct.int_to_tuple(todays_date.year + 3), master_number=True
+        )
+        return self.get_numerology_sum(
+            (self.birthdate_day_num, self.birthdate_month_num, year_sum), 
+            master_number=False
+        )        
+
 
     @property
     def key_figures(self) -> Dict:

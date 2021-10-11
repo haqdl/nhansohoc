@@ -166,6 +166,31 @@ def build_numerology_details(first_name: str, last_name: str, dob: str) -> dict:
         number_list=numerology_results.pyramid_numbers
     )  
 
+    # Fortune curr year
+    n_detail_dict['fortuneyear'] = get_number_details(
+        model_class=BirthdayYearPath,
+        model_number=numerology_results.fortune_curr_year_number
+    )  
+
+    # Fortune next year
+    n_detail_dict['fortune1year'] = get_number_details(
+        model_class=BirthdayYearPath,
+        model_number=numerology_results.fortune_next_1_year_number
+    ) 
+
+    # Fortune next year
+    n_detail_dict['fortune2year'] = get_number_details(
+        model_class=BirthdayYearPath,
+        model_number=numerology_results.fortune_next_2_year_number
+    )    
+
+    # Fortune next year
+    n_detail_dict['fortune3year'] = get_number_details(
+        model_class=BirthdayYearPath,
+        model_number=numerology_results.fortune_next_3_year_number
+    )     
+
+
     return n_detail_dict
 
 

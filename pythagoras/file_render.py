@@ -1,6 +1,7 @@
 
 from nhansohoc.settings import TEMPLATES
 import os
+import datetime
 from django.conf import settings
 from io import StringIO, BytesIO
 from django.http import HttpResponse
@@ -142,7 +143,7 @@ def replace_text(replacements, shapes):
 def render_pptx(params:dict):
     # load up pptx template
     file_path = settings.TEMPLATES[0]["DIRS"][0]
-    prs = pptx.Presentation(file_path / "template_2.pptx")
+    prs = pptx.Presentation(file_path / "template_3.pptx")
     slide_list = prs.slides
     # get details
     details = params.get("details", {})
@@ -152,7 +153,7 @@ def render_pptx(params:dict):
     r_lifepath_meaning = BeautifulSoup(lifepath_meaning, "html5lib").get_text()
     destiny_meaning = details['destinypath']['meaning']
     r_destiny_meaning = BeautifulSoup(destiny_meaning, "html5lib").get_text()
-    power_meaning = details['destinypath']['meaning']
+    power_meaning = details['powerpath']['meaning']
     r_power_meaning = BeautifulSoup(power_meaning, "html5lib").get_text()
     hearth_desire_meaning = details['hearthdesire']['meaning']
     r_hearth_desire_meaning = BeautifulSoup(hearth_desire_meaning, "html5lib").get_text()
@@ -164,6 +165,17 @@ def render_pptx(params:dict):
     r_daypath_meaning = BeautifulSoup(daypath_meaning, "html5lib").get_text()
     yearpath_meaning = details['yearpath']['meaning']
     r_yearpath_meaning = BeautifulSoup(yearpath_meaning, "html5lib").get_text()
+
+    # fortune
+    fortuneyear_meaning = details['fortuneyear']['meaning']
+    r_fortuneyear_meaning = BeautifulSoup(fortuneyear_meaning, "html5lib").get_text()    
+    fortune1year_meaning = details['fortune1year']['meaning']
+    r_fortune1year_meaning = BeautifulSoup(fortune1year_meaning, "html5lib").get_text()    
+    fortune2year_meaning = details['fortune2year']['meaning']
+    r_fortune2year_meaning = BeautifulSoup(fortune2year_meaning, "html5lib").get_text()    
+    fortune3year_meaning = details['fortune3year']['meaning']
+    r_fortune3year_meaning = BeautifulSoup(fortune3year_meaning, "html5lib").get_text()    
+    
 
     last_name = details['info']['last_name'] 
     first_name = details['info']['first_name']
@@ -199,6 +211,18 @@ def render_pptx(params:dict):
         '{{miss_num_2_meaning}}': '',
         '{{miss_num_3_meaning}}': '',
         '{{miss_num_4_meaning}}': '',
+        '{{ft_curr_year_num}}': str(details['info']['fortune_curr_year_number']),
+        '{{ft_curr_year_meaning}}': r_fortuneyear_meaning,
+        '{{ft_next_1_year_num}}': str(details['info']['fortune_next_1_year_number']),
+        '{{ft_next_1_year_meaning}}': r_fortune1year_meaning,
+        '{{ft_next_2_year_num}}': str(details['info']['fortune_next_2_year_number']),
+        '{{ft_next_2_year_meaning}}': r_fortune2year_meaning,
+        '{{ft_next_3_year_num}}': str(details['info']['fortune_next_3_year_number']),
+        '{{ft_next_3_year_meaning}}': r_fortune3year_meaning,
+        '{{curr_year}}': str(datetime.date.today().year),
+        '{{next_1_year}}': str(datetime.date.today().year + 1),
+        '{{next_2_year}}': str(datetime.date.today().year + 2),
+        '{{next_3_year}}': str(datetime.date.today().year + 3),        
     }
 
     # missing path 
