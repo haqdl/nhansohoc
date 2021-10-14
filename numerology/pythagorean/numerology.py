@@ -3,7 +3,7 @@ import logging
 import math
 import datetime
 from collections import Counter
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, List
 
 from .common import Functions as fct
 from .interpretations import Interpretations
@@ -232,8 +232,8 @@ class Numerology:
             self._key_figures["full_name_numbers"] = self.full_name_numbers
             self._key_figures[
                 "full_name_missing_numbers"
-            ] = self.full_name_missing_numbers
-            self._key_figures["passion_numbers"] = self.passion_numbers
+            ] = list(self.full_name_missing_numbers)
+            self._key_figures["passion_numbers"] = list(self.passion_numbers)
 
 
         # Birthdate elements (as birthdate is optional)
@@ -261,9 +261,9 @@ class Numerology:
                 "power_number_alternative"
             ] = self.power_number_alternative
             self._key_figures["attitude_number"] = self.attitude_number
-            self._key_figures["challenge_numbers"] = self.challenge_numbers
-            self._key_figures["pyramid_numbers"] = self.pyramid_numbers
-            self._key_figures["pyramid_ages"] = self.pyramid_ages 
+            self._key_figures["challenge_numbers"] = list(self.challenge_numbers)
+            self._key_figures["pyramid_numbers"] = list(self.pyramid_numbers)
+            self._key_figures["pyramid_ages"] = list(self.pyramid_ages)
             self._key_figures["fortune_curr_year_number"] = self.fortune_curr_year_number
             self._key_figures["fortune_next_1_year_number"] = self.fortune_next_1_year_number
             self._key_figures["fortune_next_2_year_number"] = self.fortune_next_2_year_number 
@@ -459,7 +459,7 @@ class Numerology:
 
 
     @property
-    def passion_numbers(self) ->Tuple:
+    def passion_numbers(self) -> Tuple:
         """Returns the most count numbers from the full name as a dict(Counter).
 
         The dict contains the numbers and their occurrences."""

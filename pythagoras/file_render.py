@@ -143,7 +143,7 @@ def replace_text(replacements, shapes):
 def render_pptx(params:dict):
     # load up pptx template
     file_path = settings.TEMPLATES[0]["DIRS"][0]
-    prs = pptx.Presentation(file_path / "template_3.pptx")
+    prs = pptx.Presentation(file_path / "template_5.pptx")
     slide_list = prs.slides
     # get details
     details = params.get("details", {})
