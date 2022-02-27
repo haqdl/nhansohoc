@@ -143,7 +143,7 @@ def replace_text(replacements, shapes):
 def render_pptx(params:dict):
     # load up pptx template
     file_path = settings.TEMPLATES[0]["DIRS"][0]
-    prs = pptx.Presentation(file_path / "template_5.pptx")
+    prs = pptx.Presentation(file_path / "template_6.pptx")
     slide_list = prs.slides
     # get details
     details = params.get("details", {})
@@ -224,6 +224,19 @@ def render_pptx(params:dict):
         '{{next_2_year}}': str(datetime.date.today().year + 2),
         '{{next_3_year}}': str(datetime.date.today().year + 3),        
     }
+
+    # passion path 
+
+    passion_path = details['passionpath']
+    passion_numbers = details['info']['passion_numbers']
+    replaces['{{passion_num}}'] = str(passion_numbers)
+
+    for idx, passion in enumerate(passion_path):
+        pass_num_key = '{{pass_num_' + str(idx+1) + '}}'        
+        pass_num_meaning_key = '{{pass_num_' + str(idx+1) + '_meaning}}'
+        pass_num_meaning =  BeautifulSoup(passion['meaning'], "html5lib").get_text()
+        replaces[pass_num_key] = passion['model_number']
+        replaces[pass_num_meaning_key] = pass_num_meaning
 
     # missing path 
 

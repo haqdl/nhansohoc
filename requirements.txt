@@ -4,3 +4,4 @@ django-ckeditor
 xhtml2pdf
 python-pptx
 beautifulsoup4
+unidecode

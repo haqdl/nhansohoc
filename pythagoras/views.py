@@ -1,4 +1,5 @@
 import io
+from unidecode import unidecode
 from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime
@@ -56,10 +57,10 @@ def build_numerology_details(first_name: str, last_name: str, dob: str) -> dict:
     fortune_day = datetime.today()           
     birthday = datetime.strptime(dob, '%Y-%m-%d')
 
-    # calculate
+    # calculate    
     numerology_results = Pythagorean(
-        first_name=first_name,
-        last_name=last_name,
+        first_name=unidecode(first_name),
+        last_name=unidecode(last_name),
         birthdate=dob,
         verbose=False
     )
