@@ -3,6 +3,7 @@ import logging
 import math
 import datetime
 from collections import Counter
+from operator import truediv
 from typing import Dict, Optional, Tuple, List
 
 from .common import Functions as fct
@@ -64,7 +65,7 @@ class Numerology:
         "z": 8,
     }
 
-    vowels = ("a", "e", "i", "o", "u", "y")
+    vowels = ("a", "e", "i", "o", "u")
 
     consonants = (
         "b",
@@ -113,8 +114,8 @@ class Numerology:
         birthdate: Optional[str] = None,
         verbose: bool = True,
     ):
-        self.first_name = first_name
-        self.last_name = last_name
+        self.first_name = first_name.strip()
+        self.last_name = last_name.strip()
         self.birthdate = birthdate
         self.verbose = verbose
 
@@ -160,6 +161,23 @@ class Numerology:
         return int(sum)
 
     # INIT METHODS
+
+    def is_vowel(self, pos: int) -> bool:        
+        """Van dang con tranh cai."""
+        y_is_consonant = False
+        full_name = self.first_name + " " + self.last_name
+        
+        letter = full_name[pos]
+        if letter == "y" and len(full_name) > 1:
+            if pos == len(full_name) - 1 and full_name[pos-1] in self.vowels:                
+                y_is_consonant = True
+            if pos == 0 and full_name[pos+1] in self.vowels:
+                y_is_consonant = True
+            if (0 < pos < len(full_name) -2) and (full_name[pos-1] in self.vowels or full_name[pos+1] in self.vowels):
+                y_is_consonant = True
+        
+        return full_name[pos] in self.vowels or not y_is_consonant
+
 
     def check_parameters(self):
         self.check_first_name()
@@ -387,15 +405,26 @@ class Numerology:
         Returns:
             int: Inner Dream Number.
         """
-        consonants_in_name_num = fct.match_numbers_to_letters(
-            (
+        consonants_in_name = [
                 letter
                 for letter in (self.first_name_cleaned + self.last_name_cleaned)
                 if letter in self.consonants
-            ),
-            self.alphabet,
-        )
-        ret_num = self.get_numerology_sum(consonants_in_name_num) 
+        ]
+        full_name = self.first_name + " " + self.last_name
+        for idx, letter in enumerate(full_name):            
+            if letter == "y" and not self.is_vowel(idx):
+                consonants_in_name.append(letter)
+            
+        consonants_in_name_num = fct.match_numbers_to_letters(consonants_in_name, self.alphabet)
+        # consonants_in_name_num = fct.match_numbers_to_letters(
+        #     (
+        #         letter
+        #         for letter in (self.first_name_cleaned + self.last_name_cleaned)
+        #         if letter in self.consonants
+        #     ),
+        #     self.alphabet,
+        # )
+        ret_num = self.get_numerology_sum(consonants_in_name_num)         
         return ret_num if ret_num <= 22 else self.get_numerology_sum(fct.int_to_tuple(ret_num)) 
 
     @property
@@ -408,15 +437,28 @@ class Numerology:
         Returns:
             int: Hearth Desire Number.
         """
-        vowels_in_name_num = fct.match_numbers_to_letters(
-            (
+       
+        vowels_in_name = [
                 letter
                 for letter in (self.first_name_cleaned + self.last_name_cleaned)
                 if letter in self.vowels
-            ),
-            self.alphabet,
-        )
-        ret_num = self.get_numerology_sum(vowels_in_name_num)
+        ]
+        full_name = self.first_name + " " + self.last_name
+        for idx, letter in enumerate(full_name):            
+            if letter == "y" and self.is_vowel(idx):
+                 vowels_in_name.append(letter)
+
+        vowels_in_name_num = fct.match_numbers_to_letters(vowels_in_name, self.alphabet)
+
+        # vowels_in_name_num = fct.match_numbers_to_letters(
+        #     (
+        #         letter
+        #         for letter in (self.first_name_cleaned + self.last_name_cleaned)
+        #         if letter in self.vowels
+        #     ),
+        #     self.alphabet,
+        # )
+        ret_num = self.get_numerology_sum(vowels_in_name_num)        
         return ret_num if ret_num <= 22 else self.get_numerology_sum(fct.int_to_tuple(ret_num)) 
 
 
